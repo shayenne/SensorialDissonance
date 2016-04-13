@@ -1,12 +1,12 @@
-#N canvas 54 475 450 300 10;
+#N canvas 51 488 450 300 10;
 #X obj 106 130 throw~ outL;
 #X obj 106 72 osc~;
-#X obj 106 28 r freq\$1;
+#X obj 61 29 r freq\$1;
 #X obj 163 28 r amp\$1;
-#X obj 177 65 print \$1;
-#X obj 23 56 print \$1;
+#X floatatom 61 58 5 0 0 0 - - -;
+#X floatatom 163 55 5 0 0 0 - - -;
 #X connect 1 0 0 0;
 #X connect 2 0 1 0;
-#X connect 2 0 5 0;
+#X connect 2 0 4 0;
 #X connect 3 0 1 1;
-#X connect 3 0 4 0;
+#X connect 3 0 5 0;
