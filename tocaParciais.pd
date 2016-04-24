@@ -20,15 +20,7 @@
 #X msg 37 275 0;
 #X obj 20 247 t b b f f;
 #X msg 20 317 0;
-#N canvas 532 235 450 300 parciais 0;
-#X obj 10 0 parcial 0;
-#X obj 10 30 parcial 1;
-#X obj 10 60 parcial 2;
-#X obj 10 90 parcial 3;
-#X obj 10 120 parcial 4;
-#X obj 10 150 parcial 5;
-#X obj 10 180 parcial 6;
-#X obj 10 210 parcial 7;
+#N canvas 529 248 450 300 parciais 1;
 #X restore 1063 -163 pd parciais;
 #X obj 772 127 s pd-parciais;
 #X text 1086 -92 Normaliza as amplitudes;
@@ -112,7 +104,6 @@ tocar \, e para após um tempo.;
 #X obj 1274 301 r tam;
 #X text 774 75 Limpa os parciais anteriores;
 #X obj 1253 31 * 2;
-#X obj 1287 115 print lista;
 #X obj 220 -64 inlet toca;
 #X obj 642 -58 inlet freq;
 #X obj 412 262 inlet intervalo;
@@ -224,19 +215,10 @@ tocar \, e para após um tempo.;
 #X obj 467 506 tabwrite~ arrayOutL;
 #N canvas 0 50 450 250 (subpatch) 0;
 #X array arrayOutL 100 float 1;
-#A 0 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963
-0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963
-0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963
-0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963
-0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963
-0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963
-0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963
-0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963
-0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963
-0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963
-0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963
-0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963 0.999963
-0.999963 0.999963 0.999963 0.999963 0.999963;
+#A 0 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8
+8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8
+8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8
+8;
 #X coords 0 1 99 -1 200 140 1 0 0;
 #X restore 687 394 graph;
 #X msg 772 92 editmode 1 \, clear;
@@ -245,7 +227,6 @@ tocar \, e para após um tempo.;
 #X obj 642 -37 t b b b l l;
 #X connect 0 0 102 0;
 #X connect 1 0 2 0;
-#X connect 1 0 103 0;
 #X connect 3 0 15 0;
 #X connect 4 0 5 0;
 #X connect 4 0 9 0;
@@ -357,26 +338,26 @@ tocar \, e para após um tempo.;
 #X connect 99 0 96 0;
 #X connect 100 0 99 1;
 #X connect 102 0 1 1;
-#X connect 104 0 110 0;
-#X connect 105 0 120 0;
-#X connect 106 0 81 1;
-#X connect 110 0 3 0;
-#X connect 110 1 53 0;
-#X connect 110 2 66 0;
-#X connect 111 0 112 0;
-#X connect 111 0 112 1;
-#X connect 111 0 115 0;
+#X connect 103 0 109 0;
+#X connect 104 0 119 0;
+#X connect 105 0 81 1;
+#X connect 109 0 3 0;
+#X connect 109 1 53 0;
+#X connect 109 2 66 0;
+#X connect 110 0 111 0;
+#X connect 110 0 111 1;
+#X connect 110 0 114 0;
+#X connect 112 0 113 0;
 #X connect 113 0 114 0;
-#X connect 114 0 115 0;
-#X connect 117 0 22 0;
-#X connect 118 0 119 0;
-#X connect 119 0 76 0;
-#X connect 119 1 94 0;
-#X connect 119 2 1 0;
-#X connect 119 3 0 0;
-#X connect 119 4 109 0;
-#X connect 120 0 29 0;
-#X connect 120 1 31 0;
-#X connect 120 2 117 0;
-#X connect 120 3 39 0;
-#X connect 120 4 108 0;
+#X connect 116 0 22 0;
+#X connect 117 0 118 0;
+#X connect 118 0 76 0;
+#X connect 118 1 94 0;
+#X connect 118 2 1 0;
+#X connect 118 3 0 0;
+#X connect 118 4 108 0;
+#X connect 119 0 29 0;
+#X connect 119 1 31 0;
+#X connect 119 2 116 0;
+#X connect 119 3 39 0;
+#X connect 119 4 107 0;
