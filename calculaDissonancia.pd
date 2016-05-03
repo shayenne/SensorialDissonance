@@ -1,7 +1,5 @@
-#N canvas 0 204 1425 588 10;
-#X text 26 29 Frequencias;
-#X text 221 28 Amplitudes;
-#N canvas 0 256 1425 588 externLoop 1;
+#N canvas 0 93 1440 807 10;
+#N canvas 0 312 1425 588 externLoop 0;
 #N canvas 0 300 1425 600 innerLoop 0;
 #X obj -230 -72 inlet;
 #X obj -162 -70 inlet;
@@ -191,13 +189,13 @@
 #X obj 128 79 + 1;
 #N canvas 0 0 450 300 (subpatch) 0;
 #X array \$0-amp 50 float 3;
-#A 0 0.5 0.6 1 0.5 1 0.000564408 0.000752543 0.00100339 0.00133786
-0.00178381 0.00237841 0.00317121 0.00422828 0.00563771 0.00751695 0.0100226
-0.0133635 0.0178179 0.0237573 0.0316764 0.0422351 0.0563135 0.0750847
-0.100113 0.133484 0.177979 0.237305 0.316406 0.421875 0.5625 0.75 1
-0.000133937 0.000178582 0.000238109 0.000317479 0.000423306 0.000564408
-0.000752543 0.00100339 0.00133786 0.00178381 0.00237841 0.00317121
-0.00422828 0.00563771 0.00751695 0.0100226 0.0133635 1;
+#A 0 0.5 0.5 1 0.9 0.9 0.2 0.000752543 0.00100339 0.00133786 0.00178381
+0.00237841 0.00317121 0.00422828 0.00563771 0.00751695 0.0100226 0.0133635
+0.0178179 0.0237573 0.0316764 0.0422351 0.0563135 0.0750847 0.100113
+0.133484 0.177979 0.237305 0.316406 0.421875 0.5625 0.75 1 0.000133937
+0.000178582 0.000238109 0.000317479 0.000423306 0.000564408 0.000752543
+0.00100339 0.00133786 0.00178381 0.00237841 0.00317121 0.00422828 0.00563771
+0.00751695 0.0100226 0.0133635 1;
 #X coords 0 1 50 0 200 140 1 0 0;
 #X restore 224 231 graph;
 #N canvas 0 0 450 300 (subpatch) 0;
@@ -211,10 +209,10 @@
 #X restore 441 232 graph;
 #N canvas 0 0 450 300 (subpatch) 0;
 #X array \$0-freq 50 float 3;
-#A 0 10103 7921 5553 4784 2368 10260 9880 9500 9120 8740 8360 7980
-7600 7220 6840 6460 6080 5700 5320 4940 4560 4180 3800 3420 3040 2660
-2280 1900 1520 1140 760 380 27968 27094 26220 25346 24472 23598 22724
-21850 20976 20102 19228 18354 17480 16606 15732 14858 13984 874;
+#A 0 7666 5066 4068 2167 2040 1351 9880 9500 9120 8740 8360 7980 7600
+7220 6840 6460 6080 5700 5320 4940 4560 4180 3800 3420 3040 2660 2280
+1900 1520 1140 760 380 27968 27094 26220 25346 24472 23598 22724 21850
+20976 20102 19228 18354 17480 16606 15732 14858 13984 874;
 #X coords 0 10000 50 -1 200 140 1 0 0;
 #X restore 7 232 graph;
 #X obj 99 79 f;
@@ -249,14 +247,14 @@
 #X obj 700 127 tabwrite \$0-amp_n;
 #N canvas 0 93 450 300 (subpatch) 0;
 #X array \$0-amp_n 50 float 1;
-#A 0 0.0694444 0.0833333 0.138889 0.0694444 0.138889 7.05581e-05 9.40773e-05
-0.000125436 0.000167249 0.000222999 0.000297331 0.000396441 0.000528588
-0.000704784 0.000939713 0.00125295 0.00167061 0.00222746 0.00296996
-0.00395995 0.00527992 0.00703989 0.00938653 0.0125154 0.0166872 0.0222496
-0.0296661 0.0395547 0.0527397 0.0703196 0.0937594 0.125013 8.3719e-06
-1.11625e-05 1.48833e-05 1.98444e-05 2.64593e-05 3.5279e-05 4.70387e-05
-6.27182e-05 8.36246e-05 0.000111499 0.000148666 0.00019822 0.000264294
-0.000352392 0.000469856 0.000626475 0.000835303 0.0625063;
+#A 0 0.0625 0.0625 0.125 0.1125 0.1125 0.025 9.40773e-05 0.000125436
+0.000167249 0.000222999 0.000297331 0.000396441 0.000528588 0.000704784
+0.000939713 0.00125295 0.00167061 0.00222746 0.00296996 0.00395995
+0.00527992 0.00703989 0.00938653 0.0125154 0.0166872 0.0222496 0.0296661
+0.0395547 0.0527397 0.0703196 0.0937594 0.125013 8.3719e-06 1.11625e-05
+1.48833e-05 1.98444e-05 2.64593e-05 3.5279e-05 4.70387e-05 6.27182e-05
+8.36246e-05 0.000111499 0.000148666 0.00019822 0.000264294 0.000352392
+0.000469856 0.000626475 0.000835303 0.0625063;
 #X coords 0 1 49 0 200 140 1 0 0;
 #X restore 694 233 graph;
 #X obj 700 -72 r $amp_n;
@@ -346,9 +344,8 @@
 #X msg 401 -60 0;
 #X obj 236 -80 t b b;
 #X msg 287 -171 2.3;
-#X obj 236 -194 t b b b b;
 #X text 441 1 Define o indice;
-#N canvas 0 93 1440 807 encontraMinimos 1;
+#N canvas 0 93 1440 807 encontraMinimos 0;
 #X obj 137 22 f;
 #X obj 137 -30 r $df;
 #X obj 137 -6 t b b b f;
@@ -362,8 +359,8 @@
 #X obj 57 217 f;
 #N canvas 0 106 450 300 (subpatch) 0;
 #X array \$0-minimos 40 float 1;
-#A 0 1 17 23 29 35 44 55 67 74 83 92 103 112 121 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#A 0 1 17 23 29 35 44 55 67 74 83 92 103 112 121 1 17 23 29 35 44 55
+67 74 83 92 103 112 121 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 130 39 0 200 140 1 0 0;
 #X restore 442 -34 graph;
 #X floatatom 168 314 0 0 99 1 index - -;
@@ -405,18 +402,18 @@
 ;
 #N canvas 0 0 450 300 (subpatch) 0;
 #X array \$0-dissonance 100 float 3;
-#A 0 2 0.60977 0.286721 0.501476 2 0.27863 2 0.585651 2 0.580451 0.370303
-0.495142 0.826839 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+#A 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2;
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+2;
 #X coords 0 2 99 0 200 140 1 0 0;
 #X restore 439 227 graph;
 #X floatatom 228 372 0 0 99 1 index - -;
 #X floatatom 99 371 0 0 0 0 value - -;
 #X obj 99 392 tabwrite \$0-dissonance;
 #N canvas 0 0 450 300 (subpatch) 0;
-#X array \$0-sorteia_intervalo 5 float 3;
-#A 0 121 74 1 35 55;
+#X array $sorteia_intervalo 5 float 3;
+#A 0 17 112 112 1 1;
 #X coords 0 101 4 0 200 140 1 0 0;
 #X restore 437 457 graph;
 #X obj 760 619 unpack;
@@ -440,7 +437,6 @@
 #X obj 741 361 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 820 686 tabread \$0-minimos;
-#X obj 820 728 tabwrite \$0-sorteia_intervalo;
 #X text 739 336 Encontra os 5 intervalos com menores dissonancia;
 #X obj 198 231 t b b b;
 #X msg 338 267 const 2;
@@ -448,6 +444,7 @@
 #X obj 793 660 t f f;
 #X obj 741 554 t b b f;
 #X obj 741 313 r $encMin;
+#X obj 820 728 tabwrite $sorteia_intervalo;
 #X connect 0 0 6 1;
 #X connect 0 0 9 0;
 #X connect 1 0 2 0;
@@ -475,7 +472,7 @@
 #X connect 18 0 19 0;
 #X connect 18 0 48 0;
 #X connect 19 0 18 1;
-#X connect 20 0 74 0;
+#X connect 20 0 73 0;
 #X connect 22 0 21 0;
 #X connect 23 0 45 0;
 #X connect 24 0 23 1;
@@ -510,13 +507,13 @@
 #X connect 48 0 50 1;
 #X connect 49 0 50 0;
 #X connect 52 1 53 0;
-#X connect 53 0 77 0;
+#X connect 53 0 76 0;
 #X connect 54 0 52 0;
-#X connect 55 0 72 1;
-#X connect 56 0 72 0;
+#X connect 55 0 79 1;
+#X connect 56 0 79 0;
 #X connect 57 0 58 0;
 #X connect 57 0 62 0;
-#X connect 58 0 78 0;
+#X connect 58 0 77 0;
 #X connect 58 1 59 0;
 #X connect 59 0 61 1;
 #X connect 60 0 57 0;
@@ -532,16 +529,16 @@
 #X connect 69 0 67 0;
 #X connect 70 0 64 0;
 #X connect 71 0 56 0;
-#X connect 74 0 16 0;
-#X connect 74 1 22 0;
-#X connect 74 2 75 0;
-#X connect 75 0 76 0;
-#X connect 77 0 66 0;
-#X connect 77 1 71 0;
-#X connect 78 0 69 0;
-#X connect 78 1 54 0;
-#X connect 78 2 55 0;
-#X connect 79 0 70 0;
+#X connect 73 0 16 0;
+#X connect 73 1 22 0;
+#X connect 73 2 74 0;
+#X connect 74 0 75 0;
+#X connect 76 0 66 0;
+#X connect 76 1 71 0;
+#X connect 77 0 69 0;
+#X connect 77 1 54 0;
+#X connect 77 2 55 0;
+#X connect 78 0 70 0;
 #X restore 555 -182 pd encontraMinimos;
 #X obj 236 -106 until;
 #X obj 723 -33 s \$0-curve;
@@ -554,7 +551,6 @@
 #X obj 604 89 until;
 #X obj 638 171 + 1;
 #X msg 619 145 0;
-#X obj 655 98 r tam;
 #X obj 604 217 t f f;
 #X obj 688 172 bang;
 #X obj 644 243 tabread \$0-freq;
@@ -562,11 +558,13 @@
 #X obj 709 114 s \$0-espectro;
 #X obj 604 68 t b b b;
 #X obj 560 245 tabread \$0-amp;
-#X obj 604 45 r $init;
 #X obj 342 211 r $freq;
 #X obj 314 102 r $freq;
 #X obj 320 -23 t b b;
 #X obj 320 0 s $encMin;
+#X obj 236 -194 t b b b b b;
+#X obj 654 148 list length;
+#X obj 654 128 r $freq;
 #X connect 0 0 10 0;
 #X connect 1 0 0 0;
 #X connect 1 1 0 1;
@@ -582,7 +580,7 @@
 #X connect 13 0 14 0;
 #X connect 13 0 17 0;
 #X connect 14 0 15 0;
-#X connect 14 1 63 0;
+#X connect 14 1 60 0;
 #X connect 15 0 19 0;
 #X connect 17 0 13 1;
 #X connect 18 0 13 1;
@@ -593,12 +591,12 @@
 #X connect 19 4 4 1;
 #X connect 20 0 21 1;
 #X connect 21 0 31 0;
-#X connect 22 0 38 0;
+#X connect 22 0 62 0;
 #X connect 24 0 25 0;
 #X connect 24 0 26 0;
 #X connect 25 0 24 1;
 #X connect 27 0 29 1;
-#X connect 27 0 44 0;
+#X connect 27 0 43 0;
 #X connect 28 0 29 0;
 #X connect 30 0 27 0;
 #X connect 32 0 28 0;
@@ -606,310 +604,45 @@
 #X connect 36 0 13 0;
 #X connect 36 1 24 0;
 #X connect 37 0 14 1;
-#X connect 38 0 41 0;
-#X connect 38 1 18 0;
-#X connect 38 2 35 0;
-#X connect 38 3 37 0;
-#X connect 41 0 36 0;
-#X connect 43 0 42 0;
-#X connect 44 1 43 0;
-#X connect 46 0 47 0;
-#X connect 46 0 50 0;
-#X connect 47 0 53 0;
-#X connect 47 1 54 0;
-#X connect 48 0 46 0;
-#X connect 49 0 48 0;
-#X connect 50 0 46 1;
-#X connect 51 0 46 1;
-#X connect 52 0 47 1;
-#X connect 53 0 59 0;
-#X connect 53 1 55 0;
-#X connect 54 0 49 1;
-#X connect 55 0 45 1;
-#X connect 56 0 57 0;
-#X connect 58 0 49 0;
-#X connect 58 1 51 0;
-#X connect 58 2 56 0;
-#X connect 59 0 45 0;
-#X connect 60 0 58 0;
-#X connect 61 0 6 0;
-#X connect 62 0 11 1;
-#X connect 63 0 64 0;
-#X connect 63 1 41 1;
-#X restore 637 38 pd externLoop;
+#X connect 40 0 36 0;
+#X connect 42 0 41 0;
+#X connect 43 1 42 0;
+#X connect 45 0 46 0;
+#X connect 45 0 49 0;
+#X connect 46 0 51 0;
+#X connect 46 1 52 0;
+#X connect 47 0 45 0;
+#X connect 48 0 47 0;
+#X connect 49 0 45 1;
+#X connect 50 0 45 1;
+#X connect 51 0 57 0;
+#X connect 51 1 53 0;
+#X connect 52 0 48 1;
+#X connect 53 0 44 1;
+#X connect 54 0 55 0;
+#X connect 56 0 48 0;
+#X connect 56 1 50 0;
+#X connect 56 2 54 0;
+#X connect 57 0 44 0;
+#X connect 58 0 6 0;
+#X connect 59 0 11 1;
+#X connect 60 0 61 0;
+#X connect 60 1 40 1;
+#X connect 62 0 40 0;
+#X connect 62 1 18 0;
+#X connect 62 2 35 0;
+#X connect 62 3 37 0;
+#X connect 62 4 56 0;
+#X connect 63 0 46 1;
+#X connect 64 0 63 0;
+#X restore 647 48 pd externLoop;
 #N canvas 0 106 450 300 (subpatch) 0;
 #X array \$0-curve 131 float 4;
 #X coords 0 2 130 -0.1 400 280 1 0 0;
-#X restore 31 198 graph;
-#X obj 29 152 bng 15 250 50 0 $init empty Calcular_curva_de_dissonância
-17 7 0 10 -262144 -1 -1;
-#X msg 219 49 1 0.3333 0.2 0.142857 0.1111 0.090909;
-#X msg 24 48 500 1000 1500 2000 2500 3000;
-#X msg 228 69 1;
-#X msg 79 97 400 800 1200 1600 2000;
-#X msg 267 94 1 0.88 0.77 0.68 0.6;
-#N canvas 0 312 1367 588 testeTocar 0;
-#X obj 1243 1 list-accum;
-#X obj 1180 42 list-math /;
-#X obj 1080 -74 r $amp;
-#X obj 1180 65 s $amp_n;
-#X obj 10 88 delay 2000;
-#X obj 10 197 f;
-#X obj 10 217 moses;
-#X obj 94 208 bang;
-#X obj 10 151 t b b;
-#X obj 10 132 until;
-#X obj 44 197 + 1;
-#X msg 25 176 0;
-#X msg 61 266 symbol amp\$1;
-#X msg 63 314 symbol freq\$1;
-#X obj 46 334 s;
-#X obj 46 288 s;
-#X obj 10 109 t b b;
-#X obj 75 171 * 2;
-#X text -4 64 Para de tocar após 2 segundos;
-#X msg 27 265 0;
-#X obj 10 237 t b b f f;
-#X msg 10 307 0;
-#N canvas 69 600 450 300 parciais 0;
-#X obj 10 0 parcial 0;
-#X obj 10 30 parcial 1;
-#X obj 10 60 parcial 2;
-#X obj 10 90 parcial 3;
-#X obj 10 120 parcial 4;
-#X obj 10 150 parcial 5;
-#X obj 10 180 parcial 6;
-#X obj 10 210 parcial 7;
-#X obj 10 240 parcial 8;
-#X obj 10 270 parcial 9;
-#X restore 1053 -173 pd parciais;
-#X obj 762 117 s pd-parciais;
-#X text 1076 -102 Normaliza as amplitudes;
-#X text 243 -196 Define os parciais que devem ser tocados \, manda
-tocar \, e para após um tempo.;
-#X obj 632 -68 r $freq;
-#X obj 632 165 f;
-#X obj 632 189 moses;
-#X obj 716 166 bang;
-#X obj 632 109 t b b;
-#X obj 632 83 until;
-#X obj 666 165 + 1;
-#X msg 649 139 0;
-#X obj 632 248 pack f f;
-#X obj 677 228 * 30;
-#X obj 632 288 s pd-parciais;
-#X msg 632 268 obj 10 \$2 parcial \$1;
-#X obj 683 92 r tam;
-#X obj 683 113 * 2;
-#X obj 75 151 r tam;
-#X obj 770 -2 list length;
-#X obj 770 19 s tam;
-#X obj 632 -47 t b b b l;
-#X obj 632 211 t f f;
-#X obj 229 196 tabread \$0-freq;
-#X msg 244 217 symbol freq\$1;
-#X obj 229 238 s;
-#X obj 229 128 f;
-#X obj 229 152 moses;
-#X obj 313 129 bang;
-#X obj 229 72 t b b;
-#X obj 229 46 until;
-#X obj 263 128 + 1;
-#X msg 244 102 0;
-#X obj 280 55 r tam;
-#X obj 229 25 t b b;
-#X obj 229 174 t f f;
-#X obj 360 199 tabread \$0-freq;
-#X msg 375 220 symbol freq\$1;
-#X obj 360 309 s;
-#X obj 360 131 f;
-#X obj 360 155 moses;
-#X obj 444 132 bang;
-#X obj 360 75 t b b;
-#X obj 360 49 until;
-#X obj 394 131 + 1;
-#X msg 375 105 0;
-#X obj 411 58 r tam;
-#X obj 360 28 t b b;
-#X obj 360 177 t f f;
-#X obj 1080 376 s;
-#X obj 1080 266 f;
-#X obj 1080 290 moses;
-#X obj 1080 210 t b b;
-#X obj 1080 184 until;
-#X obj 1114 266 + 1;
-#X msg 1095 240 0;
-#X obj 1131 193 r tam;
-#X obj 1080 163 t b b;
-#X obj 1080 312 t f f;
-#X obj 404 182 +;
-#X obj 419 162 r tam;
-#X obj 360 290 *;
-#X obj 387 273 f;
-#X obj 402 252 r $intervalo;
-#X obj 360 252 t f b;
-#X msg 1095 355 symbol amp\$1;
-#X obj 1164 267 bang;
-#X obj 1080 334 tabread \$0-amp_n;
-#X obj 1205 375 s;
-#X obj 1205 265 f;
-#X obj 1205 289 moses;
-#X obj 1205 209 t b b;
-#X obj 1205 183 until;
-#X obj 1239 265 + 1;
-#X msg 1220 239 0;
-#X obj 1256 192 r tam;
-#X obj 1205 162 t b b;
-#X obj 1205 311 t f f;
-#X msg 1220 354 symbol amp\$1;
-#X obj 1289 273 bang;
-#X obj 1205 333 tabread \$0-amp_n;
-#X obj 1249 311 +;
-#X obj 1264 291 r tam;
-#X obj 210 -74 r $toca_intervalo;
-#X obj 1080 -53 t b b l l;
-#X obj 210 -49 t b b b;
-#X text 764 65 Limpa os parciais anteriores;
-#X obj 1243 21 * 2;
-#X obj 1277 105 print lista;
-#X msg 762 82 editmode 1 \, clear;
-#X connect 0 0 109 0;
-#X connect 1 0 3 0;
-#X connect 1 0 110 0;
-#X connect 2 0 106 0;
-#X connect 4 0 16 0;
-#X connect 5 0 6 0;
-#X connect 5 0 10 0;
-#X connect 6 0 20 0;
-#X connect 6 1 7 0;
-#X connect 7 0 9 1;
-#X connect 8 0 5 0;
-#X connect 9 0 8 0;
-#X connect 10 0 5 1;
-#X connect 11 0 5 1;
-#X connect 12 0 15 1;
-#X connect 13 0 14 1;
-#X connect 16 0 9 0;
-#X connect 16 1 11 0;
-#X connect 17 0 6 1;
-#X connect 19 0 15 0;
-#X connect 20 0 21 0;
-#X connect 20 2 13 0;
-#X connect 20 3 12 0;
-#X connect 21 0 14 0;
-#X connect 26 0 43 0;
-#X connect 27 0 28 0;
-#X connect 27 0 32 0;
-#X connect 28 0 44 0;
-#X connect 28 1 29 0;
-#X connect 29 0 31 1;
-#X connect 30 0 27 0;
-#X connect 31 0 30 0;
-#X connect 32 0 27 1;
-#X connect 33 0 27 1;
-#X connect 34 0 37 0;
-#X connect 35 0 34 1;
-#X connect 37 0 36 0;
-#X connect 38 0 39 0;
-#X connect 39 0 28 1;
-#X connect 40 0 17 0;
-#X connect 41 0 42 0;
-#X connect 43 0 31 0;
-#X connect 43 1 33 0;
-#X connect 43 2 111 0;
-#X connect 43 3 41 0;
-#X connect 44 0 34 0;
-#X connect 44 1 35 0;
-#X connect 45 0 47 0;
-#X connect 46 0 47 1;
-#X connect 48 0 49 0;
-#X connect 48 0 53 0;
-#X connect 49 0 57 0;
-#X connect 49 1 50 0;
-#X connect 50 0 52 1;
-#X connect 51 0 48 0;
-#X connect 52 0 51 0;
-#X connect 53 0 48 1;
-#X connect 54 0 48 1;
-#X connect 55 0 49 1;
-#X connect 56 0 52 0;
-#X connect 56 1 54 0;
-#X connect 57 0 45 0;
-#X connect 57 1 46 0;
-#X connect 58 0 86 0;
-#X connect 59 0 60 1;
-#X connect 61 0 62 0;
-#X connect 61 0 66 0;
-#X connect 62 0 70 0;
-#X connect 62 1 63 0;
-#X connect 63 0 65 1;
-#X connect 64 0 61 0;
-#X connect 65 0 64 0;
-#X connect 66 0 61 1;
-#X connect 67 0 61 1;
-#X connect 68 0 62 1;
-#X connect 69 0 65 0;
-#X connect 69 1 67 0;
-#X connect 70 0 58 0;
-#X connect 70 1 81 0;
-#X connect 72 0 73 0;
-#X connect 72 0 76 0;
-#X connect 73 0 80 0;
-#X connect 73 1 88 0;
-#X connect 74 0 72 0;
-#X connect 75 0 74 0;
-#X connect 76 0 72 1;
-#X connect 77 0 72 1;
-#X connect 78 0 73 1;
-#X connect 79 0 75 0;
-#X connect 79 1 77 0;
-#X connect 80 0 89 0;
-#X connect 80 1 87 0;
-#X connect 81 0 59 0;
-#X connect 82 0 81 1;
-#X connect 83 0 60 0;
-#X connect 84 0 83 1;
-#X connect 85 0 84 1;
-#X connect 86 0 83 0;
-#X connect 86 1 84 0;
-#X connect 87 0 71 1;
-#X connect 88 0 75 1;
-#X connect 89 0 71 0;
-#X connect 91 0 92 0;
-#X connect 91 0 95 0;
-#X connect 92 0 99 0;
-#X connect 92 1 101 0;
-#X connect 93 0 91 0;
-#X connect 94 0 93 0;
-#X connect 95 0 91 1;
-#X connect 96 0 91 1;
-#X connect 97 0 92 1;
-#X connect 98 0 94 0;
-#X connect 98 1 96 0;
-#X connect 99 0 102 0;
-#X connect 99 1 103 0;
-#X connect 100 0 90 1;
-#X connect 101 0 94 1;
-#X connect 102 0 90 0;
-#X connect 103 0 100 0;
-#X connect 104 0 103 1;
-#X connect 105 0 107 0;
-#X connect 106 0 79 0;
-#X connect 106 1 98 0;
-#X connect 106 2 1 0;
-#X connect 106 3 0 0;
-#X connect 107 0 4 0;
-#X connect 107 1 56 0;
-#X connect 107 2 69 0;
-#X connect 109 0 1 1;
-#X connect 111 0 23 0;
-#X restore 638 63 pd testeTocar;
-#X msg 24 120 1351 2040 2167 4068 5066 7666;
-#X msg 219 117 0.2 0.9 0.9 1 0.5 0.5;
-#X msg 33 70 400;
-#X obj 33 492 hsl 400 15 1 2.3 0 0 $intervalo $num Intervalo -2 -8
+#X restore 41 208 graph;
+#X obj 43 502 hsl 400 15 1 2.3 0 0 $intervalo $num Intervalo -2 -8
 0 10 -262144 -1 -1 0 1;
-#X obj 31 518 bng 15 250 50 0 $toca_intervalo $intervalo Tocar 17 7
+#X obj 41 528 bng 15 250 50 0 $toca_intervalo $intervalo Tocar 17 7
 0 10 -262144 -1 -1;
 #N canvas 0 93 450 300 (subpatch) 0;
 #X array \$0-espectro 10000 float 3;
@@ -1214,151 +947,19 @@ tocar \, e para após um tempo.;
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5;
 #X coords 0 1 9999 0 200 140 1 0 0;
-#X restore 461 200 graph;
-#X msg 470 148 440 880;
-#X msg 551 148 1 1;
-#X msg 84 72 300 500 600 1000;
-#X msg 276 72 0.5 0.8 0.3 0.2;
-#X obj 477 467 dac~;
-#X obj 580 399 loadbang;
-#X msg 590 421 \; pd dsp 1;
-#X obj 580 462 metro 200;
-#X obj 480 528 tabwrite~ arrayOutL;
-#N canvas 0 106 450 250 (subpatch) 0;
-#X array arrayOutL 100 float 1;
-#A 0 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111
-0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111
-0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111
-0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111
-0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111
-0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111
-0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111
-0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111
-0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111
-0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111
-0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111
-0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111 0.861111
-0.861111 0.861111 0.861111 0.861111 0.861111;
-#X coords 0 1 99 -1 200 140 1 0 0;
-#X restore 411 570 graph;
-#X obj 543 398 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 788 41 vradio 30 1 0 4 timbre empty empty 0 -8 0 10 -262144
--1 -1 2;
-#X text 788 13 Escolha o timbre;
-#X text 833 45 Harpsichord (harmônico);
-#X text 834 76 Tritono (inharmônico com espaçamento igual);
-#X text 835 108 Tingshaw (inharmônico natural);
-#X obj 792 226 timbre;
-#X obj 792 287 s $init;
-#X obj 792 205 r timbre;
-#X msg 879 323 b;
-#X obj 879 346 t b b b;
-#X obj 977 474 s $justa;
-#X obj 857 435 r $newescala;
-#X obj 858 409 s $calcnew;
-#X msg 977 432 125;
-#X obj 858 385 delay 2300;
-#X msg 801 409 125;
-#X obj 24 97 s $freq;
-#X obj 219 92 s $amp;
-#X text 1081 251 Decide uma fundamental Decide o quanto esticar/comprimir
-Calcula a curva de dissonancia Ouve as comparações;
-#X obj 1142 409 until;
-#X obj 1142 462 moses;
-#X obj 1142 440 f;
-#X msg 1196 406 0;
-#X obj 1176 441 + 1;
-#X obj 1246 435 bang;
-#X obj 1142 501 t b b f;
-#X obj 1195 536 f;
-#X msg 1216 503 1.87;
-#X obj 1134 537 f;
-#X msg 1095 506 440;
-#X obj 1138 352 t b b b b;
-#X obj 1136 323 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 1141 598 list append;
-#X obj 1149 620 list;
-#X obj 1144 646 print lu;
-#X msg 1238 367 6;
-#X obj 1299 527 pow;
-#X obj 1147 563 expr $f1*$f2;
-#X obj 1297 497 expr (log($f1+1)/log(2));
-#X msg 799 557 1 0.3333 0.2 0.142857 0.1111 0.090909;
-#X msg 749 574 440 634 979 1262 1511 1738;
-#X obj 776 634 s $freq;
-#X obj 793 615 s $amp;
-#X obj 808 267 s $freq;
-#X obj 825 248 s $amp;
-#X obj 476 438 catch~ outL;
-#X obj 801 486 s $intervalo;
-#X obj 921 502 s $intervalo;
-#X obj 767 507 s $toca_intervalo;
-#X obj 773 447 t b f;
-#X obj 924 529 s $toca_intervalo;
-#X obj 930 469 t b f;
-#X connect 5 0 45 0;
-#X connect 6 0 44 0;
-#X connect 7 0 45 0;
-#X connect 8 0 44 0;
-#X connect 9 0 45 0;
-#X connect 11 0 44 0;
-#X connect 12 0 45 0;
-#X connect 13 0 44 0;
-#X connect 17 0 44 0;
-#X connect 18 0 45 0;
-#X connect 19 0 44 0;
-#X connect 20 0 45 0;
-#X connect 22 0 23 0;
-#X connect 22 0 24 0;
-#X connect 24 0 25 0;
-#X connect 27 0 24 0;
-#X connect 33 0 34 0;
-#X connect 33 1 71 0;
-#X connect 33 2 72 0;
-#X connect 35 0 33 0;
-#X connect 36 0 37 0;
-#X connect 37 0 42 0;
-#X connect 37 1 41 0;
-#X connect 37 2 43 0;
-#X connect 39 0 79 0;
-#X connect 41 0 38 0;
-#X connect 42 0 40 0;
-#X connect 43 0 77 0;
-#X connect 47 0 49 0;
-#X connect 48 0 53 0;
-#X connect 48 1 52 0;
-#X connect 49 0 48 0;
-#X connect 49 0 51 0;
-#X connect 50 0 49 1;
-#X connect 51 0 49 1;
-#X connect 52 0 47 1;
-#X connect 53 0 56 0;
-#X connect 53 1 54 0;
-#X connect 53 2 66 0;
-#X connect 54 0 64 0;
-#X connect 55 0 54 1;
-#X connect 56 0 65 0;
-#X connect 57 0 56 1;
-#X connect 58 0 47 0;
-#X connect 58 1 57 0;
-#X connect 58 2 55 0;
-#X connect 58 3 50 0;
-#X connect 59 0 58 0;
-#X connect 60 0 61 0;
-#X connect 61 0 60 1;
-#X connect 61 0 62 0;
-#X connect 63 0 48 1;
-#X connect 64 0 65 1;
-#X connect 65 0 60 0;
-#X connect 66 0 64 1;
-#X connect 67 0 70 0;
-#X connect 68 0 69 0;
-#X connect 73 0 21 0;
-#X connect 73 0 21 1;
-#X connect 73 0 25 0;
-#X connect 77 0 76 0;
-#X connect 77 1 74 0;
-#X connect 79 0 78 0;
-#X connect 79 1 75 0;
+#X restore 471 210 graph;
+#X obj 798 51 vradio 30 1 0 4 $timbre empty empty 0 -8 0 10 -262144
+-1 -1 0;
+#X text 798 23 Escolha o timbre;
+#X text 843 55 Harpsichord (harmônico);
+#X text 844 86 Tritono (inharmônico com espaçamento igual);
+#X text 845 118 Tingshaw (inharmônico natural);
+#X obj 802 236 timbre;
+#X obj 802 297 s $init;
+#X obj 818 277 s $freq;
+#X obj 835 258 s $amp;
+#X obj 802 215 r $timbre;
+#X connect 10 0 11 0;
+#X connect 10 1 12 0;
+#X connect 10 2 13 0;
+#X connect 14 0 10 0;
