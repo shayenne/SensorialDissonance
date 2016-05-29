@@ -1,4 +1,4 @@
-#N canvas 0 192 339 598 16;
+#N canvas 0 192 278 598 16;
 #X obj 346 100 r $sujeito;
 #X obj 319 164 route 0 1 2;
 #X msg 254 468 vis 1;
@@ -34,7 +34,7 @@
 #X obj -195 476 f;
 #X obj -195 603 pack f f f f;
 #X obj 214 560 t b b;
-#N canvas 748 312 584 329 questao 0;
+#N canvas 739 351 584 329 questao 1;
 #X obj 162 64 bng 30 250 50 0 $toca_1 $A A 8 15 0 25 -128992 -204800
 -262144;
 #X obj 234 64 bng 30 250 50 0 $toca_2 $B B 8 15 0 25 -128992 -204800
@@ -125,9 +125,9 @@
 #X obj 93 642 + 1;
 #X obj 1278 795 r f;
 #X obj 1317 795 r a;
-#N canvas 475 495 450 292 inicio 0;
+#N canvas 469 521 450 292 inicio 0;
 #X obj 49 70 vradio 30 1 1 3 $sujeito empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 1;
 #X text 88 71 Leigo;
 #X text 90 104 Possuo alguma experiência musical;
 #X text 89 134 Sou profissional da música;
@@ -264,8 +264,8 @@ questão para que nenhum par fosse perdido.;
 #X connect 74 1 45 0;
 #X connect 74 2 73 0;
 #X connect 76 0 44 0;
-#X connect 77 0 55 2;
-#X connect 78 0 55 3;
+#X connect 77 0 55 3;
+#X connect 78 0 55 4;
 #X connect 86 0 9 0;
 #X connect 86 1 31 0;
 #X connect 86 2 75 0;
