@@ -1,0 +1,75 @@
+#N canvas 557 207 599 347 10;
+#N canvas 65 81 450 300 nao_clique_aqui 0;
+#X restore 13 7 pd nao_clique_aqui;
+#X obj 10 51 bng 50 250 50 0 empty empty empty 17 7 0 10 -258113 -1
+-1;
+#X obj 10 160 vsl 15 128 0 127 0 0 empty empty empty 0 -9 0 10 -260097
+-1 -1 0 1;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array rNotes 100 float 3;
+#A 0 75 86 78 66 86 65 66 79 76 76 49 82 73 79 49 55 74 67 51 83 70
+49 66 71 49 77 59 87 55 59 87 89 32 84 11 24 55 0 0 0 0 0 0 0 0 0 0
+0 0 24 0 18 0 0 0 36 0 0 0 29 0 0 0 0 0 5 22 17 0 0 20 23 0 12 16 0
+9 25 2 13 0 0 11 19 33 0 4 30 0 31 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 100 100 0 200 140 1 0 0;
+#X restore 494 -17 graph;
+#X obj 182 219 textfile;
+#X obj 153 58 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 133 142 rewind;
+#X obj 177 54 loadbang;
+#X obj 253 251 print;
+#X msg 122 266 stop;
+#X obj 77 239 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 77 178 metro 100;
+#X obj 134 93 t b b b;
+#X msg 177 125 read rNotes.txt;
+#X obj 401 206 textfile;
+#X obj 372 45 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 352 129 rewind;
+#X obj 396 41 loadbang;
+#X obj 472 238 print;
+#X msg 341 253 stop;
+#X obj 296 226 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 296 165 metro 100;
+#X obj 353 80 t b b b;
+#X msg 396 112 read sNotes.txt;
+#X obj 401 268 tabwrite sNotes;
+#X obj 182 281 tabwrite rNotes;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array sNotes 100 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 100 99 0 200 140 1 0 0;
+#X restore 516 157 graph;
+#X connect 4 0 8 0;
+#X connect 4 0 25 0;
+#X connect 4 1 9 0;
+#X connect 5 0 12 0;
+#X connect 6 0 4 0;
+#X connect 7 0 12 0;
+#X connect 9 0 11 0;
+#X connect 11 0 4 0;
+#X connect 11 0 10 0;
+#X connect 12 0 11 0;
+#X connect 12 1 6 0;
+#X connect 12 2 13 0;
+#X connect 13 0 4 0;
+#X connect 14 0 18 0;
+#X connect 14 0 24 0;
+#X connect 14 1 19 0;
+#X connect 15 0 22 0;
+#X connect 16 0 14 0;
+#X connect 17 0 22 0;
+#X connect 19 0 21 0;
+#X connect 21 0 14 0;
+#X connect 21 0 20 0;
+#X connect 22 0 21 0;
+#X connect 22 1 16 0;
+#X connect 22 2 23 0;
+#X connect 23 0 14 0;
