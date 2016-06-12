@@ -1,4 +1,4 @@
-#N canvas 65 83 1375 807 10;
+#N canvas 65 81 1375 492 10;
 #X obj -22759 -8258 vradio 30 1 0 5 $timbre empty empty 0 -8 0 10 -262144
 -1 -1 3;
 #X text -22759 -8286 Escolha o timbre;
@@ -34,41 +34,39 @@
 #X restore -22994 -8255 graph;
 #X text -22206 -8260 Tocar os acordes encontrados: Ler de um arquivo
 os pares de acordo com o timbre;
-#X obj -22115 -8036 textfile;
-#X obj -22144 -8197 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj -22119 -8035 textfile;
+#X obj -22181 -8181 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X msg -22164 -8113 rewind;
-#X obj -22120 -8201 loadbang;
-#X obj -22044 -8004 print;
-#X msg -22175 -7989 stop;
-#X obj -22220 -8016 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X msg -22139 -8097 rewind;
+#X obj -22158 -8185 loadbang;
+#X msg -22074 -8013 stop;
+#X obj -22193 -8038 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj -22220 -8077 metro 100;
-#X obj -22163 -8162 t b b b;
-#X obj -21896 -8049 textfile;
-#X obj -21925 -8210 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj -22193 -8064 metro 100;
+#X obj -22158 -8162 t b b b;
+#X obj -21881 -8037 textfile;
+#X obj -21942 -8187 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X msg -21945 -8126 rewind;
-#X obj -21901 -8214 loadbang;
-#X obj -21825 -8017 print;
-#X msg -21956 -8002 stop;
-#X obj -22001 -8029 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X msg -21901 -8099 rewind;
+#X obj -21920 -8187 loadbang;
+#X msg -21836 -8015 stop;
+#X obj -21957 -8043 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj -22001 -8090 metro 100;
-#X obj -21944 -8175 t b b b;
-#X obj -22115 -7974 tabwrite \$0-ordemX;
-#X obj -21896 -7987 tabwrite \$0-ordemY;
-#X msg -22120 -8130 read pyDiss/rNotes.txt;
-#X msg -21901 -8143 read pyDiss/sNotes.txt;
+#X obj -21957 -8068 metro 100;
+#X obj -21920 -8163 t b b b;
+#X obj -22119 -7973 tabwrite \$0-ordemX;
+#X obj -21881 -7975 tabwrite \$0-ordemY;
+#X msg -22119 -8129 read pyDiss/rNotes.txt;
+#X msg -21881 -8131 read pyDiss/sNotes.txt;
 #X obj -22953 -7854 hradio 15 1 0 20 empty empty empty 0 -8 0 10 -262144
--1 -1 4;
+-1 -1 19;
 #X obj -22953 -7833 t b f f;
 #X text -22953 -7875 Acordes em ordem de consonância sensorial;
 #N canvas 0 0 450 300 (subpatch) 0;
 #X coords 0 1 100 -1 400 200 1 0 0;
 #X restore -23005 -7913 graph;
 #X obj -22350 -8227 loadbang;
-#X msg -22350 -8201 \; pd-dsp 1;
+#X msg -22350 -8201 \; pd dsp 1;
 #X connect 5 0 7 0;
 #X connect 7 0 13 0;
 #X connect 7 1 12 0;
@@ -78,34 +76,32 @@ os pares de acordo com o timbre;
 #X connect 14 0 9 4;
 #X connect 15 0 9 3;
 #X connect 16 0 9 1;
-#X connect 19 0 23 0;
-#X connect 19 0 37 0;
-#X connect 19 1 24 0;
-#X connect 20 0 27 0;
+#X connect 19 0 35 0;
+#X connect 19 1 23 0;
+#X connect 20 0 26 0;
 #X connect 21 0 19 0;
-#X connect 22 0 27 0;
-#X connect 24 0 26 0;
-#X connect 26 0 19 0;
+#X connect 22 0 26 0;
+#X connect 23 0 25 0;
+#X connect 25 0 19 0;
+#X connect 25 0 24 0;
 #X connect 26 0 25 0;
-#X connect 27 0 26 0;
-#X connect 27 1 21 0;
-#X connect 27 2 39 0;
-#X connect 28 0 32 0;
-#X connect 28 0 38 0;
-#X connect 28 1 33 0;
-#X connect 29 0 36 0;
-#X connect 30 0 28 0;
-#X connect 31 0 36 0;
-#X connect 33 0 35 0;
-#X connect 35 0 28 0;
-#X connect 35 0 34 0;
-#X connect 36 0 35 0;
-#X connect 36 1 30 0;
-#X connect 36 2 40 0;
-#X connect 39 0 19 0;
-#X connect 40 0 28 0;
-#X connect 41 0 42 0;
-#X connect 42 0 10 0;
-#X connect 42 1 16 0;
-#X connect 42 2 8 0;
-#X connect 45 0 46 0;
+#X connect 26 1 21 0;
+#X connect 26 2 37 0;
+#X connect 27 0 36 0;
+#X connect 27 1 31 0;
+#X connect 28 0 34 0;
+#X connect 29 0 27 0;
+#X connect 30 0 34 0;
+#X connect 31 0 33 0;
+#X connect 33 0 27 0;
+#X connect 33 0 32 0;
+#X connect 34 0 33 0;
+#X connect 34 1 29 0;
+#X connect 34 2 38 0;
+#X connect 37 0 19 0;
+#X connect 38 0 27 0;
+#X connect 39 0 40 0;
+#X connect 40 0 10 0;
+#X connect 40 1 16 0;
+#X connect 40 2 8 0;
+#X connect 43 0 44 0;
