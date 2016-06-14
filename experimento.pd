@@ -1,4 +1,4 @@
-#N canvas 0 192 278 598 16;
+#N canvas 65 223 278 625 16;
 #X obj 346 100 r $sujeito;
 #X obj 319 164 route 0 1 2;
 #X msg 254 468 vis 1;
@@ -34,7 +34,7 @@
 #X obj -195 476 f;
 #X obj -195 603 pack f f f f;
 #X obj 214 560 t b b;
-#N canvas 739 351 584 329 questao 1;
+#N canvas 736 355 584 329 questao 0;
 #X obj 162 64 bng 30 250 50 0 $toca_1 $A A 8 15 0 25 -128992 -204800
 -262144;
 #X obj 234 64 bng 30 250 50 0 $toca_2 $B B 8 15 0 25 -128992 -204800
@@ -48,35 +48,39 @@
 #X text 70 126 Qual deles parece mais consonante?;
 #X obj 77 278 bng 30 250 50 0 $gravar $prox empty 8 15 0 25 -204800
 -128992 -1;
-#N canvas 0 178 1425 588 toca 0;
+#N canvas 65 182 1375 588 toca 0;
 #X obj 492 76 print TM;
 #X obj 85 21 r $toca_1;
 #X obj 335 25 r $toca_2;
-#X obj 85 103 s $toca2;
-#X obj 335 107 s $toca2;
+#X obj 85 144 s $toca2;
+#X obj 335 147 s $toca2;
 #X obj 112 48 r $int1;
 #X obj 492 47 r $timbre;
 #X obj 362 52 r $int2;
-#X msg 72 148 \; $A color 16;
+#X msg 70 184 \; $A color 16;
 #X obj 335 79 f;
 #X obj 85 76 f;
 #X obj 38 49 t b b;
 #X obj 288 53 t b b;
-#X msg 361 150 \; $B color 16;
+#X msg 361 190 \; $B color 16;
 #X obj 463 315 s pd-questao;
 #X msg 474 269 msg 200 200 OI;
+#X obj 85 113 expr 1+$f1/100;
+#X obj 335 113 expr 1+$f1/100;
 #X connect 1 0 11 0;
 #X connect 2 0 12 0;
 #X connect 5 0 10 1;
 #X connect 6 0 0 0;
 #X connect 7 0 9 1;
-#X connect 9 0 4 0;
-#X connect 10 0 3 0;
+#X connect 9 0 17 0;
+#X connect 10 0 16 0;
 #X connect 11 0 8 0;
 #X connect 11 1 10 0;
 #X connect 12 0 13 0;
 #X connect 12 1 9 0;
 #X connect 15 0 14 0;
+#X connect 16 0 3 0;
+#X connect 17 0 4 0;
 #X restore 483 31 pd toca;
 #X floatatom 159 10 2 0 0 0 Questão #q -;
 #X text 118 280 Próxima;
@@ -125,7 +129,7 @@
 #X obj 93 642 + 1;
 #X obj 1278 795 r f;
 #X obj 1317 795 r a;
-#N canvas 469 521 450 292 inicio 0;
+#N canvas 466 525 450 292 inicio 0;
 #X obj 49 70 vradio 30 1 1 3 $sujeito empty empty 0 -8 0 10 -262144
 -1 -1 1;
 #X text 88 71 Leigo;

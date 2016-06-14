@@ -232,10 +232,15 @@ if __name__ == "__main__":
     ax.set_xlim((0,131))
     ax.set_ylim((0,131))
 
+    s = np.power(2, 2/12)
     order = []  # Vetor que mantera os pares de acordes em ordem de dissonancia
     for i in range(len(r)):
 
-      if r[i] != c[i] and r[i] < 90 and c[i] < r[i]+15:
+      #if r[i] != c[i] and c[i] < 85 and r[i]+15 < c[i] and r[i] > 5:
+      n1 = 1+r[i]/100
+      n2 = 1+c[i]/100
+      # A distância musical entre todas as notas devem ser maior que 1 semitom
+      if n1 > s and n2/n1 > s and 2/n2 > s:
         order.append([r[i], c[i], diss3D[r[i]][c[i]]])
         circle = plt.Circle((r[i], c[i]), .5, color='b', fill=False)
         
@@ -267,5 +272,8 @@ if __name__ == "__main__":
     else:		
       for chord in order:
         print ('Par',ind, ':', chord[0], chord[1], 'Dissonancia:', chord[2])
-        print ('Semitons:', round(np.log(1+(chord[0]/100))/np.log(np.power(2, 1/12)), 3), round(np.log(1+(chord[1]/100))/np.log(np.power(2, 1/12)), 3))
+        print ('Semitons:', 39.86314*(np.log(1+(chord[0]/100.0))/np.log(10)), 39.86314*(np.log(1+(chord[1]/100.0))/np.log(10)))
         ind += 1
+
+
+        
