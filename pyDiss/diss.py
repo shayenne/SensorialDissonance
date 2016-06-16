@@ -28,7 +28,7 @@ def iaptrans(f,t):
 def frange(x, y, jump):
   while x < y:
     yield x
-    x = round(x+jump, 3)
+    x = round(x*jump, 3)
 
 # encontra todos os mínimos
 def all_surface_minimum(f):
@@ -68,12 +68,12 @@ def dissmeasure(numpartials, frequ=[], ampl=[]):
   ind = 0;
   
   lowint = 1 ;
-  highint = 2.31 ; 
-  inc = 0.01;
+  highint = 2.47; 
+  inc = np.power(2, 1/100);
   
   size=(float)((highint-lowint)/inc);
   
-  diss = [0]*131; 
+  diss =  [0]*131; 
   intervals = [0]*400;
   allpartialsatinterval = frequ.copy();#[0]*1024;
   
@@ -111,6 +111,7 @@ def dissmeasure(numpartials, frequ=[], ampl=[]):
           
         #print(ind)
       
+
     diss[ind] = d;#//fill  diss array with dissonances
     intervals[ind] = interval;# // fill  intervals array with intervals 
     ind+=1;
