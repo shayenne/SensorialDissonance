@@ -256,24 +256,26 @@ if __name__ == "__main__":
     ind = 0
 	
 
-
+    inc = np.power(2, 1/100)
     #r, c = np.where( minimum < 1 )
     #plt.imshow(minimum[r, c])
     #plt.show()
     #print (minimum)
+    
+    
     if sendFile:
       f = open("rNotes.txt", "w")
       for ind in range(len(order)):
-        f.write("%d %d ;" % (order[ind][0], ind))
+        f.write("%f %d ;" % (np.power(2, order[ind][0]/100.0), ind))
       f.close()
       f = open("sNotes.txt", "w")
       for ind in range(len(order)):
-         f.write("%d %d ;" % (order[ind][1], ind))
+         f.write("%f %d ;" % (np.power(2, order[ind][1]/100.0), ind))
       f.close()
     else:		
       for chord in order:
-        print ('Par',ind, ':', chord[0], chord[1], 'Dissonancia:', chord[2])
-        print ('Semitons:', 39.86314*(np.log(1+(chord[0]/100.0))/np.log(10)), 39.86314*(np.log(1+(chord[1]/100.0))/np.log(10)))
+        print ('Par',ind, ':', (np.power(2, order[ind][0]/100.0)), (np.power(2, order[ind][1]/100.0)), 'Dissonancia:', chord[2])
+        print ('Semitons:', 39.86314*(np.log(np.power(2, order[ind][0]/100.0))/np.log(10)), 39.86314*(np.log(np.power(2, order[ind][1]/100.0)))/np.log(10))
         ind += 1
 
 
