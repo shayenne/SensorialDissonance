@@ -185,11 +185,20 @@ def dissmeasure(numpartials, frequ=[], ampl=[]):
 
 if __name__ == "__main__":
 
-    sendFile = False
+    sendFile = True
+    plot = False
 
-    if (len(sys.argv) > 1 and sys.argv[1] == '-l' ):
-      sendFile = True
-    
+    if (len(sys.argv) > 1):
+      if ('-l' in sys.argv):
+        sendFile = False
+      if ('-g' in sys.argv):
+        plot = True
+
+      if ('-h' in sys.argv):
+        print("Opções:\n -l - lista os pares de acordes\n -g - plota os gráficos\n sem parametros envia os pares para os arquivos rNotes e sNotes")
+        sys.exit()
+
+        
     ampl = []#[0]*1024;
     frequ = []#[0]*1024;
 
@@ -205,36 +214,39 @@ if __name__ == "__main__":
     Y = np.arange(0, 131)
     X, Y = np.meshgrid(X, Y)
 
-    # Plota o grafico como surface
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    surf = ax.plot_wireframe(X, Y, diss3D, rstride=1, cstride=1)
-    ax.set_zlim(-1.01, 10.01)
-    plt.show()
-
-    # Plota o grafico como imagem 2D
-    im = plt.imshow(diss3D, cmap='hot')
-    plt.colorbar(im, orientation='horizontal')
-    plt.show()
-
-    # Plota somente os minimos locais
     minimum = all_surface_minimum(diss3D)
-    plt.imshow(minimum, cmap='hot')
-    plt.show()
-
     # Encontra os indices dos minimos
     r, c = np.where (minimum > 0)
-    
-    plt.imshow(minimum, cmap='hot')
 
-    ax = plt.gca()
-    ax.cla() # clear things for fresh plot
-    # change default range so that new circles will work
-    ax.set_xlim((0,131))
-    ax.set_ylim((0,131))
+    if (plot):
+      # Plota o grafico como surface
+      fig = plt.figure()
+      ax = fig.add_subplot(111, projection='3d')
+      surf = ax.plot_wireframe(X, Y, diss3D, rstride=1, cstride=1)
+      ax.set_zlim(-1.01, 10.01)
+      plt.show()
+
+      # Plota o grafico como imagem 2D
+      im = plt.imshow(diss3D, cmap='hot')
+      plt.colorbar(im, orientation='horizontal')
+      plt.show()
+
+      # Plota somente os minimos locais
+     
+      plt.imshow(minimum, cmap='hot')
+      plt.show()
+      
+     
+      plt.imshow(minimum, cmap='hot')
+
+      ax = plt.gca()
+      ax.cla() # clear things for fresh plot
+      # change default range so that new circles will work
+      ax.set_xlim((0,131))
+      ax.set_ylim((0,131))
 
     s = np.power(2, 2/12)
-    order = []  # Vetor que mantera os pares de acordes em ordem de dissonancia
+    order = []  # Vetor que mantera pares de acordes em ordem de dissonancia
     for i in range(len(r)):
 
       #if r[i] != c[i] and c[i] < 85 and r[i]+15 < c[i] and r[i] > 5:
@@ -243,18 +255,21 @@ if __name__ == "__main__":
       # A distância musical entre todas as notas devem ser maior que 1 semitom
       if n1 > s and n2/n1 > s and 2/n2 > s:
         order.append([r[i], c[i], diss3D[r[i]][c[i]]])
-        circle = plt.Circle((r[i], c[i]), .5, color='b', fill=False)
-        
-        # key data point that we are encircling
-        ax.plot((r[i]),(c[i]),'o',color='y')
-        
-        fig.gca().add_artist(circle)
-    
-    plt.show()
 
+        if plot:
+          circle = plt.Circle((r[i], c[i]), .5, color='b', fill=False)
+        
+          # key data point that we are encircling
+          ax.plot((r[i]),(c[i]),'o',color='y')
+          
+          fig.gca().add_artist(circle)
+    if plot:
+      plt.show()
+    
+
+      
     order.sort(key=lambda tup: tup[2])
-    ind = 0
-	
+    ind = 0	
 
     inc = np.power(2, 1/100)
     #r, c = np.where( minimum < 1 )
@@ -262,7 +277,7 @@ if __name__ == "__main__":
     #plt.show()
     #print (minimum)
     
-    
+
     if sendFile:
       f = open("rNotes.txt", "w")
       for ind in range(len(order)):
