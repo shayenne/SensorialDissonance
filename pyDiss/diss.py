@@ -4,7 +4,9 @@ import numpy as np
 from pylab import *
 import sys
 
-# Função copiada de adessowiki, iaptrans
+
+
+# Função copiada de adessowiki: translada imagem
 def iaptrans(f,t):
   import numpy as np
   g = np.empty_like(f) 
@@ -24,15 +26,18 @@ def iaptrans(f,t):
     g[:] = f[(z-zz)%Z, (row-rr)%H, (col-cc)%W]
   return g
 
-# for com passo flexivel
+
+
+# Função for com passo flexivel
 def frange(x, y, jump):
   while x < y:
     yield x
     x = round(x*jump, 3)
 
-# encontra todos os mínimos
-def all_surface_minimum(f):
+    
 
+# Função que encontra todos os mínimos
+def all_surface_minimum(f):
   h = []
   vizinhos = [(1, 0), (1, -1), (0, 1), (0,-1), (-1, 1), (-1, 0), (-1, -1)]
 
@@ -50,248 +55,229 @@ def all_surface_minimum(f):
   # Retorna apenas os minimos locais
   return np.multiply(f,g)[1:-1,1:-1]
 
-    
-# Função que calcula dissonância 3D
-def dissmeasure(numpartials, frequ=[], ampl=[]):
 
-  surf = []
-  dstar= (float) (0.24);
+
+# Função que recebe duas listas de frequencia e as amplitudes correspondentes
+# e calcula a dissonancia para o par
+def dissPair(freq1, freq2, ampl):
   
+  # Constantes definidas em Sethares  
+  dstar= (float) (0.24);
   s1 = (float) (0.0207) ;
   s2 = (float) (18.96);  
-  
   c1 = 5.0;      
   c2 = -5.0;
   a1 = (float) (-3.51); 
-  a2 = (float) (-5.75); 
-  
-  ind = 0;
-  
+  a2 = (float) (-5.75);  
+
+  d = 0;
+  numpartials = len(freq1);
+  # Cálculo da dissonancia entre os dois sons
+  for i in range(numpartials):
+    for j in range(numpartials):
+      if (freq2[j]<freq1[i]):
+        fmin = freq2[j] ;
+      else: 
+        fmin = freq1[i] ;
+      
+      s=dstar*1.0/(s1*fmin+s2); 
+      
+      fdif=(float) (np.abs(freq2[j]-freq1[i])) ;
+	
+      arg1=1.0*a1*s*fdif; arg2=1.0*a2*s*fdif ;
+      
+      exp1=(float) (np.exp(arg1)); 
+      
+      exp2=(float) (np.exp(arg2));
+      
+      if (ampl[i]<ampl[j]):
+        dnew=ampl[i]*(c1*exp1+c2*exp2);
+      else:
+        dnew=ampl[j]*(c1*exp1+c2*exp2); 
+	  
+      d = d+dnew;    
+
+  # Dissonancia calculada
+  return d
+
+
+
+# Função que calcula dissonância 3D
+def dissSurface(numpartials, frequ=[], ampl=[]):
   lowint = 1 ;
-  highint = 2.47; 
+  highint = 2.47;
+  cent = np.power(2, 1/100);
   inc = np.power(2, 1/100);
   
-  size=(float)((highint-lowint)/inc);
+  size = (float)((highint-lowint)/inc);
   
-  diss =  [0]*131; 
-  intervals = [0]*400;
-  allpartialsatinterval = frequ.copy();#[0]*1024;
-  
-  # Calcula as bordas
+  diss = [0]*131; 
+  allpartialsatinterval = frequ.copy();
+
+  # Dissonancia vertica e horizontal
+  # Calcula as bordas # Calculate de margins
+  ind = 0;
   for interval in frange(lowint, highint, inc):
-    d=0;
-
-    for k in range(numpartials):
-      allpartialsatinterval[k] = round(interval*(frequ[k]), 5);
-  
-    for i in range(numpartials):
-      for j in range(numpartials):
-        if (allpartialsatinterval[j]<frequ[i]):
-          fmin = allpartialsatinterval[j] ;
-        else: 
-          fmin = frequ[i] ;
-	  
-        s=dstar*1.0/(s1*fmin+s2); 
-	
-        fdif=(float) (np.abs(allpartialsatinterval[j]-frequ[i])) ;
-	
-        arg1=1.0*a1*s*fdif; arg2=1.0*a2*s*fdif ;
-	
-        exp1=(float) (np.exp(arg1)); 
-	
-        exp2=(float) (np.exp(arg2));
-	
-        if (ampl[i]<ampl[j]):
-          dnew=ampl[i]*(c1*exp1+c2*exp2);
-        else:
-          dnew=ampl[j]*(c1*exp1+c2*exp2); 
-	  
-        d = d+dnew;  
-          
-          
-        #print(ind)
-      
-
-    diss[ind] = d;#//fill  diss array with dissonances
-    intervals[ind] = interval;# // fill  intervals array with intervals 
+    # Each step increments one cent
+    allpartialsatinterval = np.dot(frequ, interval);
+    #fill diss array with dissonances
+    diss[ind] = dissPair(allpartialsatinterval, frequ, ampl);
     ind+=1;
 
-  borda = diss
-  X, Y = np.meshgrid(borda, np.transpose(borda))
+  margin = diss;
+  horz, vert = np.meshgrid(margin, np.transpose(margin))
 
-  # Calcula as iterações
-
+  # Dissonancia diagonal
+  # Calcula as iterações # Calculate de diagonals
+  diag = []
   for inter in frange(lowint, highint, inc):
-    #print(inter)
     fr = np.dot(frequ, inter)
-    #print (fr)
     ind = 0
-    l = 0
     for interval in frange(lowint, highint, inc):
-      d=0;
-      for k in range(numpartials):
-        allpartialsatinterval[k] = interval*(frequ[k]);
-
-      #print ("Calculando a diss entre ", fr, allpartialsatinterval)
-      #a = input()
-      for i in range(numpartials):
-        
-        for j in range(numpartials):
-
-          if (allpartialsatinterval[j]<fr[i]):
-            fmin = allpartialsatinterval[j] ;
-
-          else: 
-            fmin = fr[i] ;
-                
-          s=dstar*1.0/(s1*fmin+s2); 
-	  
-          fdif=(float) (np.abs(allpartialsatinterval[j]-fr[i])) ;
-	  
-          arg1=1.0*a1*s*fdif; arg2=1.0*a2*s*fdif ;
-	  
-          exp1=(float) (np.exp(arg1)); 
-	
-          exp2=(float) (np.exp(arg2));
-	  
-          if (ampl[i]<ampl[j]):
-            dnew=ampl[i]*(c1*exp1+c2*exp2);
-
-          else:
-            dnew=ampl[j]*(c1*exp1+c2*exp2); 
-	  
-          d = d+dnew;  
-          
-          
-          #print(ind)
-
-      diss[ind] = d;#//fill  diss array with dissonances
-      intervals[ind] = interval;# // fill  intervals array with intervals 
-      ###printf("%f %f\n", intervals[ind], diss[ind]);	
+      allpartialsatinterval = np.dot(frequ, interval);
+      #fill diss array with dissonances
+      diss[ind] = dissPair(allpartialsatinterval, fr, ampl);
       ind+=1;
 
-    
-    #plt.plot(diss)
-    #plt.show()
-    surf.append(diss.copy())
-    
-    #print (surf[int(inter*100 - 100)])
-  surf = surf + X + Y
+    # Cópia do array: passagem de valor
+    diag.append(diss.copy())
 
-  
+  # Matriz de dissonancia 3D
+  surf = diag + horz + vert
   return surf
 
-## MAIN ##
 
+#------------------------ MAIN --------------------------#
 if __name__ == "__main__":
 
-    sendFile = True
-    plot = False
+  # Variáveis de controle
+  sendFile = True
+  plotGraphs = False
+  printMatrix = False
+  
+  # Opções da linha de comando
+  if (len(sys.argv) > 1):
+    if ('-l' in sys.argv):
+      sendFile = False
+      
+    if ('-g' in sys.argv):
+      plotGraphs = True
+      
+    if ('-d' in sys.argv):
+      printMatrix = True
+      
+    if ('-h' in sys.argv):
+      print("Opções:")
+      print(" -d - imprime a matriz de dissonância")
+      print(" -l - lista os pares de acordes")
+      print(" -g - plota os gráficos")
+      print(" sem parametros envia os pares para os arquivos rNotes e sNotes")
+      sys.exit()
+  # Fim das opções
 
-    if (len(sys.argv) > 1):
-      if ('-l' in sys.argv):
-        sendFile = False
-      if ('-g' in sys.argv):
-        plot = True
 
-      if ('-h' in sys.argv):
-        print("Opções:\n -l - lista os pares de acordes\n -g - plota os gráficos\n sem parametros envia os pares para os arquivos rNotes e sNotes")
-        sys.exit()
+  # Definição das listas a serem usadas
+  ampl = []
+  frequ = []
+  numpartials = int(input())
+
+
+  # Leitura dos dados de entrada (MODIFICAR)
+  # Neste formato: frequencia e amplitude até o numero de parciais indicado
+  for i in range(numpartials):
+    frequ.append(float(input()))
+    ampl.append(float(input()))
 
         
-    ampl = []#[0]*1024;
-    frequ = []#[0]*1024;
+  # Cálculo da matriz de dissonancia
+  diss3D = dissSurface(numpartials, frequ, ampl)
 
-    numpartials = int(input())
-	
-    for i in range(numpartials):
-        frequ.append(float(input()))#frequ[i] = float(input())
-        ampl.append(float(input()))#ampl[i] = float(input())
-
-    diss3D = dissmeasure(numpartials, frequ, ampl)
-
-    X = np.arange(0, 131)
-    Y = np.arange(0, 131)
-    X, Y = np.meshgrid(X, Y)
-
-    minimum = all_surface_minimum(diss3D)
-    # Encontra os indices dos minimos
-    r, c = np.where (minimum > 0)
-
-    if (plot):
-      # Plota o grafico como surface
-      fig = plt.figure()
-      ax = fig.add_subplot(111, projection='3d')
-      surf = ax.plot_wireframe(X, Y, diss3D, rstride=1, cstride=1)
-      ax.set_zlim(-1.01, 10.01)
-      plt.show()
-
-      # Plota o grafico como imagem 2D
-      im = plt.imshow(diss3D, cmap='hot')
-      plt.colorbar(im, orientation='horizontal')
-      plt.show()
-
-      # Plota somente os minimos locais
-     
-      plt.imshow(minimum, cmap='hot')
-      plt.show()
-      
-     
-      plt.imshow(minimum, cmap='hot')
-
-      ax = plt.gca()
-      ax.cla() # clear things for fresh plot
-      # change default range so that new circles will work
-      ax.set_xlim((0,131))
-      ax.set_ylim((0,131))
-
-    s = np.power(2, 2/12)
-    order = []  # Vetor que mantera pares de acordes em ordem de dissonancia
-    for i in range(len(r)):
-
-      #if r[i] != c[i] and c[i] < 85 and r[i]+15 < c[i] and r[i] > 5:
-      n1 = 1+r[i]/100
-      n2 = 1+c[i]/100
-      # A distância musical entre todas as notas devem ser maior que 1 semitom
-      if n1 > s and n2/n1 > s and 2/n2 > s:
-        order.append([r[i], c[i], diss3D[r[i]][c[i]]])
-
-        if plot:
-          circle = plt.Circle((r[i], c[i]), .5, color='b', fill=False)
-        
-          # key data point that we are encircling
-          ax.plot((r[i]),(c[i]),'o',color='y')
-          
-          fig.gca().add_artist(circle)
-    if plot:
-      plt.show()
     
+  # Impressao da matriz: linha de comando
+  if printMatrix:
+    print(" ".join(map(str,diss3D)))
 
       
-    order.sort(key=lambda tup: tup[2])
-    ind = 0	
+  # Cálculo dos mínimos de dissonância
+  X = np.arange(0, 131)
+  Y = np.arange(0, 131)
+  X, Y = np.meshgrid(X, Y)
+  minimum = all_surface_minimum(diss3D)
+  # Encontra os indices dos minimos
+  r, c = np.where (minimum > 0)
+  
+    
+  # Impressao dos graficos: linha de comando
+  if (plotGraphs):
+    # Plota o grafico como surface
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    surf = ax.plot_wireframe(X, Y, diss3D, rstride=1, cstride=1)
+    ax.set_zlim(-1.01, 10.01)
+    plt.show()
+    
+    # Plota o grafico como imagem 2D
+    im = plt.imshow(diss3D, cmap='hot')
+    plt.colorbar(im, orientation='horizontal')
+    plt.show()
+    
+    # Plota somente os minimos locais
+    plt.imshow(minimum, cmap='hot')
+    plt.show()
 
-    inc = np.power(2, 1/100)
-    #r, c = np.where( minimum < 1 )
-    #plt.imshow(minimum[r, c])
-    #plt.show()
-    #print (minimum)
+    ax = plt.gca()
+    ax.cla() # clear things for fresh plot
+    # change default range so that new circles will work
+    ax.set_xlim((0,131))
+    ax.set_ylim((0,131))
+  # Fim da impressao dos graficos
+
+  
+  # Escolhe as tríades que se afastam das margens e diagonal em pelo menos
+  # 1 semitom
+  stom = np.power(2, 2/12)
+  # Vetor que manterá pares de acordes em ordem de dissonancia
+  order = [] 
+  for i in range(len(r)):    
+    n1 = 1+r[i]/100
+    n2 = 1+c[i]/100
+    
+    # A distância musical entre todas as notas devem ser maior que 1 semitom
+    if n1 > stom and n2/n1 > stom and 2/n2 > stom:
+      order.append([r[i], c[i], diss3D[r[i]][c[i]]])
+
+      if plotGraphs:
+        circle = plt.Circle((r[i], c[i]), .5, color='b', fill=False)  
+        # key data point that we are encircling
+        ax.plot((r[i]),(c[i]),'o',color='y')
+        fig.gca().add_artist(circle)
+      
+  if plotGraphs:
+    plt.show()
     
 
-    if sendFile:
-      f = open("rNotes.txt", "w")
-      for ind in range(len(order)):
-        f.write("%f %d ;" % (np.power(2, order[ind][0]/100.0), ind))
-      f.close()
-      f = open("sNotes.txt", "w")
-      for ind in range(len(order)):
-         f.write("%f %d ;" % (np.power(2, order[ind][1]/100.0), ind))
-      f.close()
-    else:		
-      for chord in order:
-        print ('Par',ind, ':', (np.power(2, order[ind][0]/100.0)), (np.power(2, order[ind][1]/100.0)), 'Dissonancia:', chord[2])
-        print ('Semitons:', 39.86314*(np.log(np.power(2, order[ind][0]/100.0))/np.log(10)), 39.86314*(np.log(np.power(2, order[ind][1]/100.0)))/np.log(10))
-        ind += 1
+  # Ordena os pares de acordo com a dissonancia    
+  order.sort(key=lambda tup: tup[2])
+
+  # Envia resultados para o arquivo de texto: linha de comando
+  if sendFile:
+    fr = open("rNotes.txt", "w")
+    fs = open("sNotes.txt", "w")
+    for i in range(len(order)):
+      fr.write("%f %d ;" % (np.power(2, order[i][0]/100.0), i))
+      fs.write("%f %d ;" % (np.power(2, order[i][1]/100.0), i))
+    fr.close()
+    fs.close()
+  else:
+    # Imprime resultados na tela
+    r1200log2 = 39.86314 # Conversao de intervalo para semitons
+    for i in range(len(order)):
+      print ('Par', i, ':', (np.power(2, order[i][0]/100.0)),
+             (np.power(2, order[i][1]/100.0)), 'Dissonancia:', order[i][2])
+      print ('Semitons:',
+             39.86314*(np.log(np.power(2, order[i][0]/100.0))/np.log(10)),
+             39.86314*(np.log(np.power(2, order[i][1]/100.0)))/np.log(10))
+      
 
 
         
