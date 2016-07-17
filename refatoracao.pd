@@ -1,179 +1,202 @@
-#N canvas 65 93 1375 807 12;
-#N canvas 65 292 1375 588 externLoop 1;
-#N canvas 0 300 1425 600 innerLoop 0;
-#X obj -230 -72 inlet;
-#X obj -162 -70 inlet;
-#X text -231 -90 Indice i;
-#X text -163 -89 Indice j;
-#X text 68 31 allpartialsatinterval[j];
-#X text 226 52 freq[i];
-#X text 22 112 fmin;
-#X obj 57 114 expr if ($f1 < $f2 \, $f1 \, $f2);
-#X obj 57 175 expr 0.24/(0.0207*$f1 + 18.96);
-#X text 21 173 s;
-#X obj 138 148 expr abs($f1 - $f2);
-#X text 102 147 fdif;
-#X obj 57 212 expr $f1 * $f2;
-#X text 3 212 s * fdif;
-#N canvas 593 546 450 300 exponencial 0;
-#X obj 73 117 inlet;
-#X obj 73 139 t f f;
-#X obj 73 160 * -3.51;
-#X obj 208 156 * -5.75;
-#X obj 73 180 exp;
-#X obj 208 176 exp;
-#X obj 73 204 expr 5 * $f1 + -5 * $f2;
-#X obj 73 225 outlet;
-#X connect 0 0 1 0;
+#N canvas 65 53 1375 847 10;
+#N canvas 65 312 1375 588 externLoop 1;
+#X obj 106 81 f;
+#X obj 236 -218 r $init;
+#X obj 131 39 s $idx;
+#X floatatom 778 -93 0 0 99 1 index - -;
+#X floatatom 679 -93 0 0 0 0 value - -;
+#X obj 679 -72 tabwrite \$0-curve;
+#X obj 778 -115 r $idx;
+#X obj 679 -115 r $df;
+#X text 677 -138 Escreve os valores no vetor curve;
+#X text 186 40 Define o indice;
+#N canvas 65 85 1375 819 encontraMinimos 1;
+#X obj 33 36 f;
+#X obj 182 -36 r $df;
+#X obj 182 -12 t b b b f;
+#X obj 33 168 moses 0;
+#X obj 366 115 0;
+#X obj 199 73 0;
+#X obj 72 193 t b f;
+#X obj 29 193 r $idx;
+#X obj 57 217 f;
+#N canvas 0 106 450 300 (subpatch) 0;
+#X array \$0-minimos 40 float 1;
+#A 0 1 27 33 43 59 75 83 101 122 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 130 39 0 200 140 1 0 0;
+#X restore 442 -34 graph;
+#X floatatom 168 314 0 0 99 1 index - -;
+#X floatatom 57 313 0 0 0 0 value - -;
+#X obj 57 239 t f b;
+#X obj 57 334 tabwrite \$0-minimos;
+#X msg 183 255 0;
+#X obj 168 294 f;
+#X obj 202 294 + 1;
+#X obj 183 208 r $init;
+#X obj 249 293 s \$0-minimos;
+#X msg 249 266 const 0;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array \$0-dissonance 100 float 3;
+#A 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+2;
+#X coords 0 2 99 0 200 140 1 0 0;
+#X restore 439 213 graph;
+#X floatatom 228 372 0 0 99 1 index - -;
+#X floatatom 99 371 0 0 0 0 value - -;
+#X obj 99 392 tabwrite \$0-dissonance;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array intervalo_minimo 8 float 3;
+#A 0 83 101 59 43 75 33 27 1;
+#X coords 0 101 8 0 200 140 1 0 0;
+#X restore 437 457 graph;
+#X obj 910 366 unpack;
+#X floatatom 943 387 2 0 0 3 idx - -;
+#X obj 910 346 tabminmax \$0-dissonance;
+#X floatatom 1129 455 0 0 99 1 index - -;
+#X floatatom 970 454 0 0 0 0 value - -;
+#X obj 891 256 f;
+#X obj 891 280 moses;
+#X obj 975 257 bang;
+#X obj 891 200 t b b;
+#X obj 891 174 until;
+#X obj 925 256 + 1;
+#X msg 910 230 0;
+#X obj 891 127 t b b b;
+#X floatatom 943 503 0 0 99 1 index - -;
+#X floatatom 814 504 0 0 0 0 value - -;
+#X obj 814 525 tabwrite \$0-dissonance;
+#X msg 814 483 2;
+#X obj 891 108 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 970 433 tabread \$0-minimos;
+#X text 789 32 Encontra os 5 intervalos com menores dissonancia;
+#X obj 183 231 t b b b;
+#X msg 338 267 const 2;
+#X obj 338 294 s \$0-dissonance;
+#X obj 943 407 t f f;
+#X obj 891 301 t b b f;
+#X obj 891 84 r $encMin;
+#X obj 33 146 expr if ($f1 >= $f2 && $f2 <= $f3 && $f2 < 100 \, $f2
+\, -1);
+#X text 59 127 Encontra mínimos entre o uníssono e a oitava;
+#X obj 970 475 tabwrite intervalo_minimo;
+#X obj 830 608 r toca_minimo;
+#X obj 830 635 tabread intervalo_minimo;
+#X obj 830 688 s $num;
+#X text 832 584 Funcionamento do seletor de mínimos;
+#X msg 930 174 8;
+#X obj 731 632 print minimo;
+#X obj 830 663 expr $f1/100;
+#X connect 0 0 5 1;
+#X connect 0 0 51 0;
 #X connect 1 0 2 0;
-#X connect 1 1 3 0;
-#X connect 2 0 4 0;
-#X connect 3 0 5 0;
-#X connect 4 0 6 0;
-#X connect 5 0 6 1;
-#X connect 6 0 7 0;
-#X restore 57 241 pd exponencial;
-#X text -145 215 amp[i];
-#X text -58 232 amp[j];
-#X obj -162 300 outlet;
-#X text -108 299 dnew;
-#X obj 309 -55 r $j;
-#X obj 455 -55 r $i;
-#X obj 594 -54 r $i;
-#X obj 729 -53 r $j;
-#X obj 309 30 s $all[j];
-#X obj 455 30 s $freq[i];
-#X obj 594 31 s $amp[i];
-#X obj 729 30 s $amp[j];
-#X obj 72 51 r $all[j];
-#X obj 228 71 r $freq[i];
-#X obj -230 -50 s $i;
-#X obj -97 -27 s $j;
-#X obj -147 232 r $amp[j];
-#X obj -53 253 r $amp[i];
-#X obj -162 275 expr if ($f2 < $f1 \, $f2*$f3 \, $f1*$f3);
-#X obj 57 95 t f f;
-#X obj 228 95 t f f;
-#X obj 57 74 f;
-#X obj -162 254 f;
-#X floatatom 455 8 0 0 0 0 value - -;
-#X floatatom 455 -33 0 0 99 0 index - -;
-#X obj 455 -13 tabread \$0-freq;
-#X floatatom 729 9 0 0 0 0 value - -;
-#X floatatom 729 -32 0 0 99 0 index - -;
-#X obj 729 -12 tabread \$0-amp;
-#X floatatom 594 9 0 0 0 0 value - -;
-#X floatatom 594 -32 0 0 99 0 index - -;
-#X obj 594 -12 tabread \$0-amp;
-#X floatatom 309 8 0 0 0 0 value - -;
-#X floatatom 309 -33 0 0 99 0 index - -;
-#X obj 309 -13 tabread \$0-all;
-#X obj -162 -44 t b b f;
-#X connect 0 0 29 0;
-#X connect 1 0 50 0;
-#X connect 7 0 8 0;
-#X connect 8 0 12 0;
-#X connect 10 0 12 1;
-#X connect 12 0 14 0;
-#X connect 14 0 33 2;
-#X connect 19 0 48 0;
-#X connect 20 0 39 0;
-#X connect 21 0 45 0;
-#X connect 22 0 42 0;
-#X connect 27 0 36 1;
-#X connect 28 0 35 0;
-#X connect 31 0 37 1;
-#X connect 32 0 33 1;
-#X connect 33 0 17 0;
-#X connect 34 0 7 0;
-#X connect 34 1 10 0;
-#X connect 35 0 7 1;
-#X connect 35 1 10 1;
-#X connect 36 0 34 0;
-#X connect 37 0 33 0;
-#X connect 38 0 24 0;
-#X connect 39 0 40 0;
-#X connect 40 0 38 0;
-#X connect 41 0 26 0;
-#X connect 42 0 43 0;
-#X connect 43 0 41 0;
-#X connect 44 0 25 0;
-#X connect 45 0 46 0;
-#X connect 46 0 44 0;
-#X connect 47 0 23 0;
-#X connect 48 0 49 0;
-#X connect 49 0 47 0;
-#X connect 50 0 37 0;
-#X connect 50 1 36 0;
-#X connect 50 2 30 0;
-#X restore 252 276 pd innerLoop;
-#N canvas 712 101 720 807 indices 0;
-#X obj 224 90 until;
-#X obj 258 122 + 1;
-#X obj 224 122 f;
-#X obj 224 146 moses;
-#X obj 295 122 bang;
-#X text 152 174 Indice i;
-#X obj 224 230 until;
-#X obj 258 262 + 1;
-#X obj 224 262 f;
-#X obj 224 286 moses;
-#X obj 295 262 bang;
-#X obj 224 329 f;
-#X obj 155 194 f;
-#X text 222 310 Indice j;
-#X msg 267 231 0;
-#X msg 270 91 0;
-#X obj 224 177 t b b f;
-#X obj 224 39 inlet;
-#X obj 224 350 outlet;
-#X obj 155 350 outlet;
-#X obj 403 129 f 1;
-#X obj 418 42 inlet;
-#X obj 224 62 t b b b;
-#X text 399 113 Isso deve ser o numero de parciais;
-#X text 465 38 Numero de parciais (limite de i e j);
-#X text 263 40 Inicia o loop;
-#X connect 0 0 2 0;
-#X connect 1 0 2 1;
-#X connect 2 0 1 0;
-#X connect 2 0 3 0;
-#X connect 3 0 16 0;
-#X connect 3 1 4 0;
-#X connect 4 0 0 1;
+#X connect 2 0 0 0;
+#X connect 2 1 5 0;
+#X connect 2 2 4 0;
+#X connect 2 3 0 1;
+#X connect 3 1 6 0;
+#X connect 4 0 51 2;
+#X connect 5 0 4 1;
+#X connect 5 0 51 1;
 #X connect 6 0 8 0;
+#X connect 6 1 22 0;
 #X connect 7 0 8 1;
-#X connect 8 0 7 0;
-#X connect 8 0 9 0;
-#X connect 9 0 11 0;
-#X connect 9 1 10 0;
-#X connect 10 0 6 1;
-#X connect 11 0 18 0;
-#X connect 12 0 19 0;
-#X connect 14 0 8 1;
-#X connect 15 0 2 1;
-#X connect 16 0 6 0;
-#X connect 16 1 14 0;
-#X connect 16 2 12 0;
-#X connect 17 0 22 0;
-#X connect 20 0 9 1;
-#X connect 20 0 3 1;
-#X connect 21 0 20 1;
-#X connect 22 0 0 0;
-#X connect 22 1 15 0;
-#X connect 22 2 20 0;
-#X restore 251 253 pd indices;
-#X msg 308 231 10;
-#X text 339 177 allpartialsatinterval;
-#X obj 293 155 list-math *;
-#X obj 293 193 s $all;
-#X obj 342 231 list length;
-#X obj 219 300 f;
-#X obj 219 322 s $d;
-#X msg 267 219 0;
-#X obj 252 300 +;
-#X obj 293 124 list;
-#N canvas 65 300 1087 588 criaVetores 0;
+#X connect 8 0 12 0;
+#X connect 10 0 13 1;
+#X connect 11 0 13 0;
+#X connect 12 0 11 0;
+#X connect 12 1 15 0;
+#X connect 14 0 15 1;
+#X connect 15 0 10 0;
+#X connect 15 0 16 0;
+#X connect 15 0 21 0;
+#X connect 16 0 15 1;
+#X connect 17 0 45 0;
+#X connect 19 0 18 0;
+#X connect 21 0 23 1;
+#X connect 22 0 23 0;
+#X connect 25 1 26 0;
+#X connect 26 0 48 0;
+#X connect 27 0 25 0;
+#X connect 28 0 53 1;
+#X connect 29 0 53 0;
+#X connect 30 0 31 0;
+#X connect 30 0 35 0;
+#X connect 31 0 49 0;
+#X connect 31 1 32 0;
+#X connect 32 0 34 1;
+#X connect 33 0 30 0;
+#X connect 34 0 33 0;
+#X connect 35 0 30 1;
+#X connect 36 0 30 1;
+#X connect 37 0 34 0;
+#X connect 37 1 36 0;
+#X connect 37 2 58 0;
+#X connect 38 0 40 1;
+#X connect 39 0 40 0;
+#X connect 41 0 39 0;
+#X connect 42 0 37 0;
+#X connect 43 0 29 0;
+#X connect 45 0 14 0;
+#X connect 45 1 19 0;
+#X connect 45 2 46 0;
+#X connect 46 0 47 0;
+#X connect 48 0 38 0;
+#X connect 48 1 43 0;
+#X connect 49 0 41 0;
+#X connect 49 1 27 0;
+#X connect 49 2 28 0;
+#X connect 50 0 42 0;
+#X connect 51 0 3 0;
+#X connect 54 0 55 0;
+#X connect 55 0 60 0;
+#X connect 58 0 31 1;
+#X connect 60 0 56 0;
+#X connect 60 0 59 0;
+#X restore 677 -166 pd encontraMinimos;
+#X obj 845 -17 s \$0-curve;
+#X msg 845 -41 normalize 2;
+#X obj 794 -71 moses 130;
+#X obj 380 164 tabwrite \$0-espectro;
+#X obj 380 66 f;
+#X obj 380 90 moses;
+#X obj 380 10 t b b;
+#X obj 380 -16 until;
+#X obj 414 66 + 1;
+#X msg 399 40 0;
+#X obj 380 112 t f f;
+#X obj 464 67 bang;
+#X obj 497 140 tabread \$0-freq;
+#X msg 485 -20 const 0;
+#X obj 485 5 s \$0-espectro;
+#X obj 380 -37 t b b b;
+#X obj 380 140 tabread \$0-amp;
+#X obj 151 82 r $freq;
+#X obj 157 13 s $encMin;
+#X obj 430 43 list length;
+#X obj 430 23 r $freq;
+#X obj 1100 32 tocaParciais;
+#X obj 1169 11 r $amp;
+#X obj 1151 -10 r $freq;
+#X obj 1100 -31 r $intervalo;
+#X obj 1100 -10 t b f;
+#X obj 1101 -152 timbre;
+#X obj 1101 -91 s $init;
+#X obj 1117 -111 s $freq;
+#X obj 1134 -130 s $amp;
+#X obj 1101 -173 r $timbre;
+#X obj 973 -10 r $toca_intervalo;
+#X obj 106 102 dissPair;
+#X obj 106 123 s $df;
+#X obj 106 -35 rangeFreq;
+#X obj 236 -194 t b b;
+#X text 104 62 Nova freq para calcular a dissonancia;
+#X text 226 13 Fim do loop;
+#X text 172 -36 comment;
+#N canvas 65 304 1087 588 criaVetores 0;
 #X floatatom 128 103 0 0 99 1 index - -;
 #X floatatom 35 103 0 0 0 0 value - -;
 #X obj 35 124 tabwrite \$0-freq;
@@ -189,31 +212,30 @@
 #X obj 128 79 + 1;
 #N canvas 0 0 450 300 (subpatch) 0;
 #X array \$0-amp 50 float 3;
-#A 0 0.000133937 0.000178582 0.000238109 0.000317479 0.000423306 0.000564408
-0.000752543 0.00100339 0.00133786 0.00178381 0.00237841 0.00317121
-0.00422828 0.00563771 0.00751695 0.0100226 0.0133635 0.0178179 0.0237573
-0.0316764 0.0422351 0.0563135 0.0750847 0.100113 0.133484 0.177979
-0.237305 0.316406 0.421875 0.5625 0.75 1 0.00622048 0.00622048 0.00622048
+#A 0 0.53 0.6 0.68 0.77 0.88 1 0.000752543 0.00100339 0.00133786 0.00178381
+0.00237841 0.00317121 0.00422828 0.00563771 0.00751695 0.0100226 0.0133635
+0.0178179 0.0237573 0.0316764 0.0422351 0.0563135 0.0750847 0.100113
+0.133484 0.177979 0.237305 0.316406 0.421875 0.5625 0.75 1 0.00622048
 0.00622048 0.00622048 0.00622048 0.00622048 0.00622048 0.00622048 0.00622048
-0.00622048 0.00622048 0.00622048 0.00622048 0.00622048 0.00622048 0.00979199
-0.0133635;
+0.00622048 0.00622048 0.00622048 0.00622048 0.00622048 0.00622048 0.00622048
+0.00622048 0.00979199 0.0133635;
 #X coords 0 1 50 0 200 140 1 0 0;
 #X restore 224 231 graph;
 #N canvas 0 0 450 300 (subpatch) 0;
 #X array \$0-all 50 float 3;
-#A 0 34689.1 33605.1 32521.1 31437 30353 29268.9 28184.9 27100.9 26016.8
-24932.8 23848.8 22764.7 21680.7 20596.7 19512.6 18428.6 17344.6 16260.5
-15176.5 14092.5 13008.4 11924.4 10840.4 9756.32 8672.28 7588.25 6504.21
-5420.18 4336.14 3252.11 2168.07 1084.04 1584.03 1584.03 1584.03 1584.03
+#A 0 6504.21 5420.18 4336.14 3252.11 2168.07 1084.04 28184.9 27100.9
+26016.8 24932.8 23848.8 22764.7 21680.7 20596.7 19512.6 18428.6 17344.6
+16260.5 15176.5 14092.5 13008.4 11924.4 10840.4 9756.32 8672.28 7588.25
+6504.21 5420.18 4336.14 3252.11 2168.07 1084.04 1584.03 1584.03 1584.03
 1584.03 1584.03 1584.03 1584.03 1584.03 1584.03 1584.03 1584.03 1584.03
-1584.03 1584.03 1584.03 1584.03 369.758;
+1584.03 1584.03 1584.03 1584.03 1584.03 369.758;
 #X coords 0 10000 50 0 200 140 1 0 0;
 #X restore 441 232 graph;
 #N canvas 0 0 450 300 (subpatch) 0;
 #X array \$0-freq 50 float 3;
-#A 0 14080 13640 13200 12760 12320 11880 11440 11000 10560 10120 9680
-9240 8800 8360 7920 7480 7040 6600 6160 5720 5280 4840 4400 3960 3520
-3080 2640 2200 1760 1320 880 440 1141.41 1105.69 1069.98 1034.26 986.634
+#A 0 2640 2200 1760 1320 880 440 11440 11000 10560 10120 9680 9240
+8800 8360 7920 7480 7040 6600 6160 5720 5280 4840 4400 3960 3520 3080
+2640 2200 1760 1320 880 440 1141.41 1105.69 1069.98 1034.26 986.634
 939.01 891.387 819.951 748.516 677.08 677.08 677.08 677.08 677.08 677.08
 677.08 677.08 677.08;
 #X coords 0 10000 50 -1 200 140 1 0 0;
@@ -319,351 +341,59 @@
 #X connect 43 1 44 0;
 #X connect 44 0 41 1;
 #X connect 47 0 43 0;
-#X restore 555 -208 pd criaVetores;
-#X obj 236 -24 f;
-#X obj 236 0 moses;
-#X obj 236 43 f;
-#X text 234 24 Indice j;
-#X msg 251 -50 1;
-#X obj 236 65 t b b b b f;
-#X obj 198 144 r $d;
-#X obj 183 166 f;
-#X obj 236 -218 r $init;
-#X text 325 -171 Intervalo ajustar;
-#X obj 386 -23 f;
-#X obj 417 -23 + 1;
-#X obj 386 0 s $idx;
-#X floatatom 656 -109 0 0 99 1 index - -;
-#X floatatom 557 -109 0 0 0 0 value - -;
-#X obj 557 -88 tabwrite \$0-curve;
-#X obj 656 -131 r $idx;
-#X obj 183 189 s $df;
-#X obj 557 -131 r $df;
-#X text 555 -154 Escreve os valores no vetor curve;
-#X text 332 275 Calcula a dissonância;
-#X msg 401 -60 0;
-#X obj 236 -80 t b b;
-#X text 441 1 Define o indice;
-#N canvas 65 101 1375 807 encontraMinimos 0;
-#X obj 137 22 f;
-#X obj 137 -30 r $df;
-#X obj 137 -6 t b b b f;
-#X obj 33 168 moses 0;
-#X obj 99 217 print min;
-#X obj 193 95 0;
-#X obj 160 59 0;
-#X obj 72 193 t b f;
-#X obj 29 190 r $idx;
-#X obj 57 217 f;
-#N canvas 0 106 450 300 (subpatch) 0;
-#X array \$0-minimos 40 float 1;
-#A 0 0 23 27 33 37 42 50 59 69 75 82 86 101 118 123 127 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 130 39 0 200 140 1 0 0;
-#X restore 442 -34 graph;
-#X floatatom 168 314 0 0 99 1 index - -;
-#X floatatom 57 313 0 0 0 0 value - -;
-#X obj 57 239 t f b;
-#X obj 57 334 tabwrite \$0-minimos;
-#X msg 198 255 0;
-#X obj 13 261 print int;
-#X obj 168 294 f;
-#X obj 202 294 + 1;
-#X obj 198 208 r $init;
-#X obj 249 293 s \$0-minimos;
-#X msg 249 266 const 0;
-#X obj 1065 211 expr if ( sqrt(($f1-$f2) * ($f1-$f2)) < sqrt(($f1-$f3)
-* ($f1-$f3)) \, $f2 \, $f3);
-#X floatatom 1231 183 0 0 0 0 value - -;
-#X floatatom 1231 142 0 0 99 0 index - -;
-#X obj 1231 162 tabread \$0-minimos;
-#X obj 1275 85 expr if ($f1 == 0 \, 1 \, 0);
-#X obj 1275 107 moses 1;
-#X msg 1279 -3 0;
-#X obj 1231 35 f;
-#X obj 1265 35 + 1;
-#X obj 1231 -38 t b b;
-#X obj 1231 -4 until;
-#X obj 1077 304 f;
-#X obj 1003 93 r $justa;
-#X obj 1231 -59 r $calcnew;
-#X obj 1077 330 s $newescala;
-#X obj 1064 165 f;
-#X obj 1168 124 bang;
-#X obj 1065 185 t f b;
-#X obj 1050 275 f;
-#X obj 1003 114 t f b;
-#X msg 1030 215 230;
-#X obj 1314 128 t b b;
-#X obj 1065 249 t f f;
-#X text 991 -6 Encontra o mínimo mais próximo de um intervalo definido
-;
-#N canvas 0 0 450 300 (subpatch) 0;
-#X array \$0-dissonance 100 float 3;
-#A 0 1.67566 1.50336 1.27469 1.50803 1.10394 1.3858 2 1.18856 0.85027
-0.962226 1.07364 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2;
-#X coords 0 2 99 0 200 140 1 0 0;
-#X restore 439 227 graph;
-#X floatatom 228 372 0 0 99 1 index - -;
-#X floatatom 99 371 0 0 0 0 value - -;
-#X obj 99 392 tabwrite \$0-dissonance;
-#N canvas 0 0 450 300 (subpatch) 0;
-#X array $sorteia_intervalo 5 float 3;
-#A 0 86 118 123 101 50;
-#X coords 0 101 4 0 200 140 1 0 0;
-#X restore 437 457 graph;
-#X obj 760 619 unpack;
-#X floatatom 793 640 2 0 0 3 idx - -;
-#X obj 760 599 tabminmax \$0-dissonance;
-#X floatatom 991 708 0 0 99 1 index - -;
-#X floatatom 820 707 0 0 0 0 value - -;
-#X obj 741 509 f;
-#X obj 741 533 moses;
-#X obj 825 510 bang;
-#X obj 741 453 t b b;
-#X obj 741 427 until;
-#X obj 775 509 + 1;
-#X msg 760 483 0;
-#X obj 741 380 t b b b;
-#X msg 780 427 5;
-#X floatatom 677 709 0 0 99 1 index - -;
-#X floatatom 548 708 0 0 0 0 value - -;
-#X obj 548 729 tabwrite \$0-dissonance;
-#X msg 548 687 2;
-#X obj 741 361 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 820 686 tabread \$0-minimos;
-#X text 739 336 Encontra os 5 intervalos com menores dissonancia;
-#X obj 198 231 t b b b;
-#X msg 338 267 const 2;
-#X obj 338 294 s \$0-dissonance;
-#X obj 793 660 t f f;
-#X obj 741 554 t b b f;
-#X obj 741 313 r $encMin;
-#X obj 820 728 tabwrite $sorteia_intervalo;
-#X obj 33 146 expr if ($f1 >= $f2 && $f2 <= $f3 && $f2 < 100 \, $f2
-\, -1);
-#X text 59 127 Encontra mínimos entre o uníssono e a oitava;
-#X connect 0 0 6 1;
-#X connect 0 0 79 0;
-#X connect 1 0 2 0;
-#X connect 2 0 0 0;
-#X connect 2 1 6 0;
-#X connect 2 2 5 0;
-#X connect 2 3 0 1;
-#X connect 3 1 7 0;
-#X connect 5 0 79 2;
-#X connect 6 0 5 1;
-#X connect 6 0 79 1;
-#X connect 7 0 9 0;
-#X connect 7 1 4 0;
-#X connect 7 1 48 0;
-#X connect 8 0 9 1;
-#X connect 9 0 13 0;
-#X connect 9 0 16 0;
-#X connect 11 0 14 1;
-#X connect 12 0 14 0;
-#X connect 13 0 12 0;
-#X connect 13 1 17 0;
-#X connect 15 0 17 1;
-#X connect 17 0 11 0;
-#X connect 17 0 18 0;
-#X connect 17 0 47 0;
-#X connect 18 0 17 1;
-#X connect 19 0 72 0;
-#X connect 21 0 20 0;
-#X connect 22 0 44 0;
-#X connect 23 0 22 1;
-#X connect 23 0 26 0;
-#X connect 24 0 25 0;
-#X connect 25 0 23 0;
-#X connect 26 0 27 0;
-#X connect 27 0 38 0;
-#X connect 27 1 43 0;
-#X connect 28 0 29 1;
-#X connect 29 0 30 0;
-#X connect 29 0 24 0;
-#X connect 30 0 29 1;
-#X connect 31 0 32 0;
-#X connect 31 1 28 0;
-#X connect 32 0 29 0;
-#X connect 33 0 36 0;
-#X connect 34 0 41 0;
-#X connect 35 0 31 0;
-#X connect 37 0 39 0;
-#X connect 38 0 37 0;
-#X connect 39 0 22 0;
-#X connect 39 1 40 0;
-#X connect 40 0 22 2;
-#X connect 41 0 37 1;
-#X connect 41 1 42 0;
-#X connect 42 0 40 1;
-#X connect 43 0 33 0;
-#X connect 43 1 32 1;
-#X connect 44 0 40 1;
-#X connect 44 1 33 1;
-#X connect 47 0 49 1;
-#X connect 48 0 49 0;
-#X connect 51 1 52 0;
-#X connect 52 0 75 0;
-#X connect 53 0 51 0;
-#X connect 54 0 78 1;
-#X connect 55 0 78 0;
-#X connect 56 0 57 0;
-#X connect 56 0 61 0;
-#X connect 57 0 76 0;
-#X connect 57 1 58 0;
-#X connect 58 0 60 1;
-#X connect 59 0 56 0;
-#X connect 60 0 59 0;
-#X connect 61 0 56 1;
-#X connect 62 0 56 1;
-#X connect 63 0 60 0;
-#X connect 63 1 62 0;
-#X connect 63 2 64 0;
-#X connect 64 0 57 1;
-#X connect 65 0 67 1;
-#X connect 66 0 67 0;
-#X connect 68 0 66 0;
-#X connect 69 0 63 0;
-#X connect 70 0 55 0;
-#X connect 72 0 15 0;
-#X connect 72 1 21 0;
-#X connect 72 2 73 0;
-#X connect 73 0 74 0;
-#X connect 75 0 65 0;
-#X connect 75 1 70 0;
-#X connect 76 0 68 0;
-#X connect 76 1 53 0;
-#X connect 76 2 54 0;
-#X connect 77 0 69 0;
-#X connect 79 0 3 0;
-#X restore 555 -182 pd encontraMinimos;
-#X obj 236 -106 until;
-#X obj 723 -33 s \$0-curve;
-#X msg 723 -57 normalize 2;
-#X obj 672 -87 moses 130;
-#X obj 604 269 tabwrite \$0-espectro;
-#X obj 604 171 f;
-#X obj 604 195 moses;
-#X obj 604 115 t b b;
-#X obj 604 89 until;
-#X obj 638 171 + 1;
-#X msg 623 145 0;
-#X obj 604 217 t f f;
-#X obj 688 172 bang;
-#X obj 721 245 tabread \$0-freq;
-#X msg 709 85 const 0;
-#X obj 709 110 s \$0-espectro;
-#X obj 604 68 t b b b;
-#X obj 604 245 tabread \$0-amp;
-#X obj 342 211 r $freq;
-#X obj 314 102 r $freq;
-#X obj 320 -23 t b b;
-#X obj 320 0 s $encMin;
-#X obj 236 -194 t b b b b b;
-#X obj 654 148 list length;
-#X obj 654 128 r $freq;
-#X obj 270 -24 * 1.00696;
-#X msg 283 -171 2.47;
-#X obj 1100 32 tocaParciais;
-#X obj 1169 11 r $amp;
-#X obj 1151 -10 r $freq;
-#X obj 1100 -31 r $intervalo;
-#X obj 1100 -10 t b f;
-#X obj 1101 -152 timbre;
-#X obj 1101 -91 s $init;
-#X obj 1117 -111 s $freq;
-#X obj 1134 -130 s $amp;
-#X obj 1101 -173 r $timbre;
-#X obj 973 -10 r $toca_intervalo;
-#X connect 0 0 10 0;
-#X connect 1 0 0 0;
-#X connect 1 1 0 1;
-#X connect 2 0 1 1;
+#X restore 730 131 pd criaVetores;
+#X text 678 108 Vetores que contem os dados;
+#X text 382 -56 Impressão do espectro;
+#X connect 0 0 43 0;
+#X connect 1 0 46 0;
+#X connect 3 0 5 1;
+#X connect 3 0 13 0;
 #X connect 4 0 5 0;
-#X connect 6 0 1 1;
-#X connect 7 0 8 0;
-#X connect 7 0 10 1;
-#X connect 9 0 7 1;
-#X connect 9 0 10 1;
-#X connect 10 0 7 0;
-#X connect 11 0 4 0;
-#X connect 13 0 14 0;
-#X connect 13 0 63 0;
-#X connect 14 0 15 0;
-#X connect 14 1 58 0;
-#X connect 15 0 18 0;
-#X connect 17 0 13 1;
-#X connect 18 0 20 0;
-#X connect 18 1 1 0;
-#X connect 18 2 9 0;
-#X connect 18 3 11 0;
-#X connect 18 4 4 1;
-#X connect 19 0 20 1;
-#X connect 20 0 30 0;
-#X connect 21 0 60 0;
-#X connect 23 0 24 0;
-#X connect 23 0 25 0;
-#X connect 24 0 23 1;
-#X connect 26 0 28 1;
-#X connect 26 0 41 0;
-#X connect 27 0 28 0;
-#X connect 29 0 26 0;
-#X connect 31 0 27 0;
-#X connect 34 0 23 1;
-#X connect 35 0 13 0;
-#X connect 35 1 23 0;
-#X connect 38 0 35 0;
-#X connect 40 0 39 0;
-#X connect 41 1 40 0;
+#X connect 6 0 3 0;
+#X connect 7 0 4 0;
+#X connect 12 0 11 0;
+#X connect 13 1 12 0;
+#X connect 15 0 16 0;
+#X connect 15 0 19 0;
+#X connect 16 0 21 0;
+#X connect 16 1 22 0;
+#X connect 17 0 15 0;
+#X connect 18 0 17 0;
+#X connect 19 0 15 1;
+#X connect 20 0 15 1;
+#X connect 21 0 27 0;
+#X connect 21 1 23 0;
+#X connect 22 0 18 1;
+#X connect 23 0 14 1;
+#X connect 24 0 25 0;
+#X connect 26 0 18 0;
+#X connect 26 1 20 0;
+#X connect 26 2 24 0;
+#X connect 27 0 14 0;
+#X connect 28 0 43 1;
+#X connect 30 0 16 1;
+#X connect 31 0 30 0;
+#X connect 33 0 32 4;
+#X connect 34 0 32 3;
+#X connect 35 0 36 0;
+#X connect 36 0 32 0;
+#X connect 36 1 32 1;
+#X connect 37 0 38 0;
+#X connect 37 1 39 0;
+#X connect 37 2 40 0;
+#X connect 41 0 37 0;
+#X connect 42 0 32 0;
 #X connect 43 0 44 0;
-#X connect 43 0 47 0;
-#X connect 44 0 49 0;
-#X connect 44 1 50 0;
-#X connect 45 0 43 0;
+#X connect 45 0 0 0;
+#X connect 45 1 2 0;
+#X connect 45 2 29 0;
 #X connect 46 0 45 0;
-#X connect 47 0 43 1;
-#X connect 48 0 43 1;
-#X connect 49 0 55 0;
-#X connect 49 1 51 0;
-#X connect 50 0 46 1;
-#X connect 51 0 42 1;
-#X connect 52 0 53 0;
-#X connect 54 0 46 0;
-#X connect 54 1 48 0;
-#X connect 54 2 52 0;
-#X connect 55 0 42 0;
-#X connect 56 0 6 0;
-#X connect 57 0 11 1;
-#X connect 58 0 59 0;
-#X connect 58 1 38 1;
-#X connect 60 0 38 0;
-#X connect 60 1 17 0;
-#X connect 60 2 34 0;
-#X connect 60 3 64 0;
-#X connect 60 4 54 0;
-#X connect 61 0 44 1;
-#X connect 62 0 61 0;
-#X connect 63 0 13 1;
-#X connect 64 0 14 1;
-#X connect 66 0 65 4;
-#X connect 67 0 65 3;
-#X connect 68 0 69 0;
-#X connect 69 0 65 0;
-#X connect 69 1 65 1;
-#X connect 70 0 71 0;
-#X connect 70 1 72 0;
-#X connect 70 2 73 0;
-#X connect 74 0 70 0;
-#X connect 75 0 65 0;
-#X restore 708 29 pd externLoop;
+#X connect 46 1 26 0;
+#X restore 718 39 pd externLoop;
 #N canvas 0 106 450 300 (subpatch) 0;
 #X array \$0-curve 131 float 4;
 #X coords 0 2 130 -0.1 400 280 1 0 0;
-#X restore 41 208 graph;
+#X restore 51 218 graph;
 #N canvas 0 93 450 300 (subpatch) 0;
 #X array \$0-espectro 10000 float 3;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -691,7 +421,7 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.75
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.88
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -705,7 +435,7 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5625 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.77 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -718,21 +448,21 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.421875 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.68 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #A 2000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0.316406 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0.6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -744,9 +474,7 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0.237305 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.53
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -755,10 +483,11 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #A 3000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.177979 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -771,7 +500,6 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.133484 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -784,8 +512,10 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.100113 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #A 4000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -797,7 +527,6 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0750847
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -810,12 +539,13 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0563135
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #A 5000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -824,7 +554,6 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0.0422351 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -837,7 +566,6 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0316764 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -845,12 +573,13 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #A 6000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0237573 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -863,7 +592,6 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.0178179
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -875,9 +603,10 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #A 7000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0.0133635 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -890,7 +619,6 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0.0100226 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -903,9 +631,11 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00751695 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #A 8000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -916,7 +646,6 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00563771 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -929,13 +658,14 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00422828 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #A 9000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -943,7 +673,6 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0.00317121 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -956,7 +685,6 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0.00237841 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -965,29 +693,34 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00178381;
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 1 9999 0 200 140 1 0 0;
-#X restore 471 210 graph;
-#X obj 42 30 vradio 30 1 0 5 $timbre empty empty 0 -8 0 10 -262144
--1 -1 0;
-#X text 87 34 Harpsichord (harmônico);
-#X text 88 65 Tritono (inharmônico com espaçamento igual);
-#X text 88 97 Tingshaw (inharmônico natural);
-#X obj 702 21 cnv 15 450 250 empty empty empty 20 12 0 14 -262130 -16662
+#X restore 481 220 graph;
+#X obj 52 40 vradio 30 1 0 5 $timbre empty empty 0 -8 0 10 -262144
+-1 -1 3;
+#X text 97 44 Harpsichord (harmônico);
+#X text 98 75 Tritono (inharmônico com espaçamento igual);
+#X text 98 107 Tingshaw (inharmônico natural);
+#X obj 712 31 cnv 15 450 250 empty empty empty 20 12 0 14 -262130 -16662
 0;
-#X obj 43 514 hsl 400 15 1 2.3 0 0 $intervalo $num empty -2 -8 0 10
+#X obj 53 524 hsl 400 15 1 2.47 1 0 $intervalo $num empty -2 -8 0 10
 -262144 -1 -1 0 0;
-#X obj 41 540 bng 15 250 50 0 $toca_intervalo $intervalo Tocar 17 7
+#X obj 51 550 bng 15 250 50 0 $toca_intervalo $intervalo Tocar 17 7
 0 10 -262144 -1 -1;
-#X text 720 42 Aqui você poderá explorar os sons que foram tocados
+#X text 730 52 Aqui você poderá explorar os sons que foram tocados
 durante o experimento.;
-#X text 88 128 Harmônico (6 parciais);
-#X text 88 160 Harmônico (2 parciais);
-#X text 39 491 2 - Intervalo;
-#X text 42 3 1 - Timbre;
-#X text 723 149 2 - Arraste o marcador de intervalo para ouvir os sons
+#X text 98 138 Harmônico (6 parciais);
+#X text 98 170 Harmônico (2 parciais);
+#X text 49 501 2 - Intervalo;
+#X text 52 13 1 - Timbre;
+#X text 733 159 2 - Arraste o marcador de intervalo para ouvir os sons
 de acordo com a frequência.;
-#X text 723 107 1 - Escolha o timbre para calcular a curva de dissonância
+#X text 733 117 1 - Escolha o timbre para calcular a curva de dissonância
 associada.;
-#X text 720 215 Procure associar o som com a altura da curva. A teoria
+#X text 730 225 Procure associar o som com a altura da curva. A teoria
 diz que quanto mais alta \, mais dissonância há no som.;
+#X obj 584 548 hradio 15 1 0 8 toca_minimo empty empty 0 -8 0 10 -262144
+-1 -1 4;
+#X text 582 570 Toque os mínimos em ordem de dissonância;

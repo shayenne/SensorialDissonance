@@ -1,15 +1,17 @@
-#N canvas 218 524 450 300 10;
-#X obj 106 130 throw~ outL;
-#X obj 106 72 osc~;
-#X obj 106 -8 r freq\$1;
-#X obj 172 -6 r amp\$1;
-#X floatatom 106 50 5 0 0 0 - - -;
-#X floatatom 172 51 5 0 0 0 - - -;
-#X obj 105 100 *~ 1;
+#N canvas 215 528 493 300 10;
+#X obj 75 144 throw~ outL;
+#X obj 75 86 osc~;
+#X obj 75 -7 r freq\$1;
+#X obj 252 -6 r amp\$1;
+#X floatatom 75 64 5 0 0 0 - - -;
+#X floatatom 252 56 5 0 0 0 - - -;
+#X obj 74 114 *~ 1;
 #X obj 75 15 expr if ($f1 > 20000 \, 0 \, $f1) \; if ($f1 > 20000 \,
 0 \, $f2);
-#X obj 195 101 line;
-#X msg 195 80 \$1 300;
+#X obj 252 97 line;
+#X msg 252 76 \$1 300;
+#X text 286 98 Rampa para variação de amplitude;
+#X text 263 21 Filtro de frequências acima de 20KHz;
 #X connect 1 0 6 0;
 #X connect 2 0 7 0;
 #X connect 3 0 7 1;

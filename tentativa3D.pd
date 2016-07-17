@@ -1,4 +1,4 @@
-#N canvas 182 407 887 492 10;
+#N canvas 176 387 887 492 10;
 #X obj -22759 -8258 vradio 30 1 0 5 \$0-criaAcordes empty empty 0 -8
 0 10 -262144 -1 -1 0;
 #X text -22714 -8254 Harpsichord (harmônico);
@@ -30,7 +30,7 @@
 -1 -1 0;
 #X obj -22952 -7991 t b f f;
 #X text -22952 -8071 Acordes em ordem de consonância sensorial;
-#N canvas 65 85 1375 819 interno 0;
+#N canvas 65 89 1375 819 interno 1;
 #X obj -22395 -8256 r $timbre;
 #X obj -22395 -8235 timbre;
 #X obj -22362 -8213 s $amp;
@@ -92,6 +92,8 @@ os pares de acordo com o timbre;
 #X msg -21627 -7722 ../../usr/bin/python3 shayenne/SensorialDissonance/pyDiss/diss.py
 -l < harm6.txt;
 #X obj -22181 -8214 t b b b;
+#X text -21519 -7901 Calcular todos os timbres e acrescentar o arquivo
+de cada um sem precisar pedir para o python o tempo todo;
 #X connect 0 0 1 0;
 #X connect 1 0 4 0;
 #X connect 1 1 3 0;
@@ -144,8 +146,6 @@ os pares de acordo com o timbre;
 #X connect 51 1 14 0;
 #X connect 51 2 26 0;
 #X restore -22994 -8110 pd interno;
-#X text -22541 -7948 Jogar fora acordes que sejam parecidos na estrutura
-(x-x)mod12 \, (y-x)mod12 \, (z-x)mod12;
 #X text -22949 -8027 0 _1 _2 _3 _4 _5 _6 _7 _8 _9 _10 11 12 13 14 15
 16 17 18 19;
 #X obj -22441 -8257 vradio 30 1 0 5 $timbre empty empty 0 -8 0 10 -262144
@@ -157,7 +157,6 @@ os pares de acordo com o timbre;
 #X text -22395 -8160 Timbre harmônico Sethares;
 #X text -22441 -8285 Escolha o timbre para tocar;
 #X text -22759 -8286 Escolha o timbre para criar os acordes;
-#X text -22335 -7998 Dente de serra sawtooth;
 #X connect 5 0 6 2;
 #X connect 7 0 6 0;
 #X connect 8 0 6 4;
