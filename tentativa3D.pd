@@ -1,36 +1,14 @@
-#N canvas 176 387 887 492 10;
-#X obj -22759 -8258 vradio 30 1 0 5 \$0-criaAcordes empty empty 0 -8
-0 10 -262144 -1 -1 0;
-#X text -22714 -8254 Harpsichord (harmônico);
-#X text -22713 -8223 Tritono (inharmônico com espaçamento igual)
+#N canvas 184 288 887 492 10;
+#X obj -22848 -8331 vradio 30 1 0 5 \$0-criaAcordes empty empty 0 -8
+0 10 -262144 -1 -1 3;
+#X text -22803 -8327 Harpsichord (harmônico);
+#X text -22802 -8296 Tritono (inharmônico com espaçamento igual)
 ;
-#X text -22712 -8191 Tingshaw (inharmônico natural);
-#X text -22713 -8161 Timbre harmônico Sethares;
-#X obj -22811 -7936 tabread \$0-ordemX;
-#X obj -22952 -7891 tocaParciais;
-#X obj -22952 -7936 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj -22693 -7918 r $amp;
-#X obj -22693 -7937 r $freq;
-#X obj -22933 -7937 tabread \$0-ordemY;
-#N canvas 0 0 450 300 (subpatch) 0;
-#X array \$0-ordemY 100 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0;
-#X array \$0-ordemX 100 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0;
-#X coords 0 2 100 0 200 140 1 0 0;
-#X restore -22994 -8255 graph;
-#X obj -22950 -8012 hradio 18 1 0 20 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
-#X obj -22952 -7991 t b f f;
-#X text -22952 -8071 Acordes em ordem de consonância sensorial;
-#N canvas 65 89 1375 819 interno 1;
+#X text -22801 -8264 Tingshaw (inharmônico natural);
+#X text -22802 -8234 Timbre harmônico Sethares;
+#X obj -22626 -8003 hradio 18 1 0 20 chord_num empty empty 0 -8 0 10
+-262144 -1 -1 13;
+#N canvas 65 53 1375 847 interno 0;
 #X obj -22395 -8256 r $timbre;
 #X obj -22395 -8235 timbre;
 #X obj -22362 -8213 s $amp;
@@ -38,131 +16,133 @@
 #X obj -22395 -8174 s $init;
 #X text -22206 -8260 Tocar os acordes encontrados: Ler de um arquivo
 os pares de acordo com o timbre;
-#X obj -22119 -8035 textfile;
-#X obj -22181 -8181 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj -22142 -8035 textfile;
+#X msg -22162 -8097 rewind;
+#X msg -22097 -8013 stop;
+#X obj -22216 -8038 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X msg -22139 -8097 rewind;
-#X msg -22074 -8013 stop;
-#X obj -22193 -8038 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj -22216 -8064 metro 100;
+#X obj -21903 -8037 textfile;
+#X msg -21923 -8099 rewind;
+#X msg -21858 -8015 stop;
+#X obj -21979 -8043 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj -22193 -8064 metro 100;
-#X obj -22158 -8162 t b b b;
-#X obj -21881 -8037 textfile;
-#X obj -21942 -8187 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X msg -21901 -8099 rewind;
-#X msg -21836 -8015 stop;
-#X obj -21957 -8043 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj -21957 -8068 metro 100;
-#X obj -21920 -8163 t b b b;
-#X obj -22119 -7973 tabwrite \$0-ordemX;
-#X obj -21881 -7975 tabwrite \$0-ordemY;
-#X msg -22119 -8129 read pyDiss/rNotes.txt;
-#X msg -21881 -8131 read pyDiss/sNotes.txt;
-#X obj -21639 -8292 loadbang;
-#X msg -21639 -8241 \; pd dsp 1;
-#X msg -21612 -8198 const 0;
-#X obj -21612 -8160 s \$0-ordemX;
-#X obj -21639 -8271 t b b;
-#X text -21543 -8201 Inicializa os vetores de intervalos;
-#X text -21565 -8236 Liga o DSP;
-#X obj -21612 -8132 s \$0-ordemY;
-#X text -22015 -7822 Selecionar o timbre para criar a lista de acordes
+#X obj -21979 -8068 metro 100;
+#X obj -22142 -7973 tabwrite \$0-ordemX;
+#X obj -21903 -7975 tabwrite \$0-ordemY;
+#X obj -21639 -8291 loadbang;
+#X msg -21639 -8240 \; pd dsp 1;
+#X msg -21612 -8197 const 0;
+#X obj -21612 -8159 s \$0-ordemX;
+#X obj -21639 -8270 t b b;
+#X text -21543 -8200 Inicializa os vetores de intervalos;
+#X text -21565 -8235 Liga o DSP;
+#X obj -21612 -8131 s \$0-ordemY;
+#X text -22320 -7923 Selecionar o timbre para criar a lista de acordes
 ;
-#X text -22008 -7805 Rodar o comando no shell;
-#X text -22001 -7787 Recarregar os pares no vetor;
-#X obj -22031 -7842 r \$0-criaAcordes;
-#X obj -22031 -7761 route 0 1 2 3 4;
-#X obj -22048 -7545 s \$0-carregaAcordes;
-#X obj -22181 -8234 r \$0-carregaAcordes;
-#X obj -22075 -7565 shell;
-#X msg -22075 -7722 symbol harm32.txt;
-#X msg -22018 -7703 symbol tritone.txt;
-#X msg -21984 -7684 symbol tingshaw.txt;
-#X msg -21943 -7663 symbol harm6.txt;
-#X obj -22104 -7498 print Carreguei;
-#X obj -21627 -7746 loadbang;
-#X obj -21627 -7674 shell;
-#X obj -21630 -7645 print;
-#X obj -21555 -7759 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X msg -22075 -7612 python shayenne/SensorialDissonance/pyDiss/diss.py
--l < shayenne/SensorialDissonance/pyDiss/\$1;
-#X msg -21627 -7722 ../../usr/bin/python3 shayenne/SensorialDissonance/pyDiss/diss.py
--l < harm6.txt;
-#X obj -22181 -8214 t b b b;
-#X text -21519 -7901 Calcular todos os timbres e acrescentar o arquivo
+#X text -22313 -7906 Rodar o comando no shell;
+#X text -22306 -7888 Recarregar os pares no vetor;
+#X obj -22336 -7943 r \$0-criaAcordes;
+#X obj -22336 -7862 route 0 1 2 3 4;
+#X text -22137 -7790 Calcular todos os timbres e acrescentar o arquivo
 de cada um sem precisar pedir para o python o tempo todo;
+#X obj -22319 -7718 s type;
+#X msg -22142 -8129 read pyDiss/\$1/rNotes.txt;
+#X obj -22181 -8234 r type;
+#X msg -21903 -8131 read pyDiss/\$1/sNotes.txt;
+#X obj -22273 -8088 print;
+#X obj -21942 -8163 t b b a;
+#X obj -22181 -8162 t b b a;
+#X msg -22113 -8161 symbol algo;
+#X msg -22377 -7823 symbol harpsichord;
+#X msg -22319 -7804 symbol tritone;
+#X msg -22285 -7785 symbol tingshaw;
+#X msg -22244 -7764 symbol harm6;
+#X obj -22181 -8214 t a a b;
+#X obj -21551 -7792 tabread \$0-ordemX;
+#X obj -21692 -7747 tocaParciais;
+#X obj -21692 -7792 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj -21433 -7774 r $amp;
+#X obj -21433 -7793 r $freq;
+#X obj -21673 -7793 tabread \$0-ordemY;
+#X obj -21692 -7847 t b f f;
+#X obj -21692 -7871 r chord_num;
 #X connect 0 0 1 0;
 #X connect 1 0 4 0;
 #X connect 1 1 3 0;
 #X connect 1 2 2 0;
-#X connect 6 0 20 0;
-#X connect 6 1 9 0;
-#X connect 7 0 12 0;
-#X connect 8 0 6 0;
-#X connect 9 0 11 0;
-#X connect 11 0 6 0;
-#X connect 11 0 10 0;
-#X connect 12 0 11 0;
-#X connect 12 1 8 0;
-#X connect 12 2 22 0;
-#X connect 13 0 21 0;
-#X connect 13 1 16 0;
-#X connect 14 0 19 0;
-#X connect 15 0 13 0;
-#X connect 16 0 18 0;
-#X connect 18 0 13 0;
-#X connect 18 0 17 0;
-#X connect 19 0 18 0;
-#X connect 19 1 15 0;
-#X connect 19 2 23 0;
-#X connect 22 0 6 0;
-#X connect 23 0 13 0;
-#X connect 24 0 28 0;
-#X connect 26 0 27 0;
-#X connect 26 0 31 0;
-#X connect 28 0 25 0;
-#X connect 28 1 26 0;
-#X connect 35 0 36 0;
-#X connect 36 0 40 0;
-#X connect 36 1 41 0;
-#X connect 36 2 42 0;
-#X connect 36 3 43 0;
-#X connect 38 0 51 0;
-#X connect 39 0 44 0;
-#X connect 39 1 37 0;
-#X connect 40 0 49 0;
-#X connect 41 0 49 0;
-#X connect 42 0 49 0;
-#X connect 43 0 49 0;
-#X connect 45 0 50 0;
-#X connect 46 0 47 0;
-#X connect 48 0 50 0;
-#X connect 49 0 39 0;
-#X connect 50 0 46 0;
-#X connect 51 0 7 0;
-#X connect 51 1 14 0;
-#X connect 51 2 26 0;
-#X restore -22994 -8110 pd interno;
-#X text -22949 -8027 0 _1 _2 _3 _4 _5 _6 _7 _8 _9 _10 11 12 13 14 15
-16 17 18 19;
-#X obj -22441 -8257 vradio 30 1 0 5 $timbre empty empty 0 -8 0 10 -262144
--1 -1 0;
-#X text -22396 -8253 Harpsichord (harmônico);
-#X text -22395 -8222 Tritono (inharmônico com espaçamento igual)
-;
-#X text -22394 -8190 Tingshaw (inharmônico natural);
-#X text -22395 -8160 Timbre harmônico Sethares;
-#X text -22441 -8285 Escolha o timbre para tocar;
-#X text -22759 -8286 Escolha o timbre para criar os acordes;
-#X connect 5 0 6 2;
+#X connect 6 0 16 0;
+#X connect 6 1 8 0;
 #X connect 7 0 6 0;
-#X connect 8 0 6 4;
-#X connect 9 0 6 3;
-#X connect 10 0 6 1;
-#X connect 12 0 13 0;
-#X connect 13 0 7 0;
-#X connect 13 1 10 0;
-#X connect 13 2 5 0;
+#X connect 8 0 10 0;
+#X connect 10 0 6 0;
+#X connect 10 0 9 0;
+#X connect 11 0 17 0;
+#X connect 11 1 13 0;
+#X connect 12 0 11 0;
+#X connect 13 0 15 0;
+#X connect 15 0 11 0;
+#X connect 15 0 14 0;
+#X connect 18 0 22 0;
+#X connect 20 0 21 0;
+#X connect 20 0 25 0;
+#X connect 22 0 19 0;
+#X connect 22 1 20 0;
+#X connect 29 0 30 0;
+#X connect 30 0 40 0;
+#X connect 30 1 41 0;
+#X connect 30 2 42 0;
+#X connect 30 3 43 0;
+#X connect 33 0 6 0;
+#X connect 34 0 36 0;
+#X connect 34 0 44 0;
+#X connect 35 0 11 0;
+#X connect 37 0 15 0;
+#X connect 37 1 12 0;
+#X connect 37 2 35 0;
+#X connect 38 0 10 0;
+#X connect 38 1 7 0;
+#X connect 38 2 33 0;
+#X connect 39 0 33 0;
+#X connect 40 0 32 0;
+#X connect 41 0 32 0;
+#X connect 42 0 32 0;
+#X connect 43 0 32 0;
+#X connect 44 0 38 0;
+#X connect 44 1 37 0;
+#X connect 44 2 20 0;
+#X connect 45 0 46 2;
+#X connect 47 0 46 0;
+#X connect 48 0 46 4;
+#X connect 49 0 46 3;
+#X connect 50 0 46 1;
+#X connect 51 0 47 0;
+#X connect 51 1 50 0;
+#X connect 51 2 45 0;
+#X connect 52 0 51 0;
+#X restore -22288 -8358 pd interno;
+#X text -22625 -8018 0 _1 _2 _3 _4 _5 _6 _7 _8 _9 _10 11 12 13 14 15
+16 17 18 19;
+#X obj -22530 -8330 vradio 30 1 0 5 $timbre empty empty 0 -8 0 10 -262144
+-1 -1 3;
+#X text -22485 -8326 Harpsichord (harmônico);
+#X text -22484 -8295 Tritono (inharmônico com espaçamento igual)
+;
+#X text -22483 -8263 Tingshaw (inharmônico natural);
+#X text -22484 -8233 Timbre harmônico Sethares;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array \$0-ordemY 20 float 3;
+#A 0 1.65864 1.49485 1.65864 1.49485 1.65864 1.59107 1.60214 1.49485
+1.65864 1.65864 1.55833 1.42405 1.32869 1.32869 1.32869 1.42405 1.41421
+1.24833 0 0;
+#X array \$0-ordemX 20 float 3;
+#A 0 1.32869 1.24833 1.23971 1.19748 1.38511 1.32869 1.19748 1.11729
+1.10957 1.18921 1.24833 1.18921 1.15669 1.18921 1.10957 1.14076 1.23971
+1.11729 0 0;
+#X coords 0 2 20 0 200 140 1 0 0;
+#X restore -22845 -8124 graph;
+#X text -22848 -8359 1 - Escolha o timbre para criar os acordes;
+#X text -22530 -8358 2 - Escolha o timbre para tocar;
+#X text -22628 -8046 3 - Acordes em ordem de consonância sensorial
+;
