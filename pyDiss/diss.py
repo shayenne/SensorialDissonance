@@ -114,7 +114,7 @@ def dissSurface(numpartials, frequ=[], ampl=[]):
   diss = [0]*131; 
   allpartialsatinterval = frequ.copy();
 
-  # Dissonancia vertica e horizontal
+  # Dissonancia vertical e horizontal
   # Calcula as bordas # Calculate de margins
   ind = 0;
   for interval in frange(lowint, highint, inc):
@@ -125,8 +125,21 @@ def dissSurface(numpartials, frequ=[], ampl=[]):
     ind+=1;
 
   margin = diss;
-  horz, vert = np.meshgrid(margin, np.transpose(margin))
+  horz, vert = np.meshgrid(margin, np.transpose(margin));
 
+
+  # Calcula os mínimos locais desta curva de dissonancia, inter menores que 2
+  mins = []
+  vals = []
+  for i in range(1, 100):
+    if diss[i-1] >= diss[i] and diss[i] <= diss[i+1]: 
+      mins.append(i)
+      vals.append(diss[i])
+
+  # Ordena os mínimos do menor para o maior
+  mins = [x for (y,x) in sorted(zip(vals,mins))]
+  
+  
   # Dissonancia diagonal
   # Calcula as iterações # Calculate de diagonals
   diag = []
@@ -144,7 +157,7 @@ def dissSurface(numpartials, frequ=[], ampl=[]):
 
   # Matriz de dissonancia 3D
   surf = diag + horz + vert
-  return surf
+  return surf, mins
 
 
 #------------------------ MAIN --------------------------#
@@ -154,12 +167,16 @@ if __name__ == "__main__":
   sendFile = True
   plotGraphs = False
   printMatrix = False
+  fivemins = False
   
   # Opções da linha de comando
   if (len(sys.argv) > 1):
+    if ('-m' in sys.argv):
+      pointMins = True
+    
     if ('-l' in sys.argv):
       sendFile = False
-      
+
     if ('-g' in sys.argv):
       plotGraphs = True
       
@@ -171,6 +188,7 @@ if __name__ == "__main__":
       print(" -d - imprime a matriz de dissonância")
       print(" -l - lista os pares de acordes")
       print(" -g - plota os gráficos")
+      print(" -m - guarda minimos da curva 2D em um arquivo")
       print(" sem parametros envia os pares para os arquivos rNotes e sNotes")
       sys.exit()
   # Fim das opções
@@ -190,7 +208,7 @@ if __name__ == "__main__":
 
         
   # Cálculo da matriz de dissonancia
-  diss3D = dissSurface(numpartials, frequ, ampl)
+  diss3D, mins = dissSurface(numpartials, frequ, ampl)
 
     
   # Impressao da matriz: linha de comando
@@ -259,6 +277,13 @@ if __name__ == "__main__":
   # Ordena os pares de acordo com a dissonancia    
   order.sort(key=lambda tup: tup[2])
 
+  # Guarda os minimos em um arquivo: linha de comando
+  if pointMins:
+    f = open("minimos.txt", "w")
+    for i in range(len(mins)):
+      f.write("%f %d ;" % (np.power(2, mins[i]/100.0), i))
+    f.close()
+    
   # Envia resultados para o arquivo de texto: linha de comando
   if sendFile:
     fr = open("rNotes.txt", "w")
