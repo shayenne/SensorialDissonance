@@ -1,4 +1,4 @@
-#N canvas 65 89 1375 807 12;
+#N canvas 65 93 1375 807 12;
 #X declare -lib iemmatrix;
 #N canvas 65 53 1375 847 externLoop 0;
 #N canvas 0 312 1087 588 criaVetores 0;
@@ -1062,7 +1062,6 @@ a imagem em tons de cinza.;
 #X connect 44 0 48 0;
 #X connect 45 0 35 0;
 #X connect 46 0 40 1;
-#X connect 49 0 78 0;
 #X connect 49 1 1 0;
 #X connect 50 0 82 0;
 #X connect 50 1 47 0;
@@ -1113,7 +1112,7 @@ a imagem em tons de cinza.;
 #X connect 101 0 102 0;
 #X restore 1140 -55 pd externLoop;
 #X obj 42 490 hsl 400 15 1 2.47 1 0 $intervalo1 $num empty -2 -8 0
-10 -262144 -1 -1 12300 0;
+10 -262144 -1 -1 14700 0;
 #X obj 41 549 bng 15 250 50 0 $toca_intervalo $intervalo empty 17 7
 0 10 -262144 -1 -1;
 #N canvas 0 93 450 300 (subpatch) 0;
@@ -1136,7 +1135,7 @@ a imagem em tons de cinza.;
 #X coords 0 2 129 0 400 280 1 0 0;
 #X restore 463 198 graph;
 #X obj 464 490 hsl 400 15 1 2.47 1 0 $intervalo2 $num empty -2 -8 0
-10 -262144 -1 -1 15300 0;
+10 -262144 -1 -1 9500 0;
 #X text 554 114 20 Hz;
 #X text 490 37 Amplitude;
 #X text 548 -35 1;
@@ -1154,8 +1153,6 @@ podem ser modificados o 2 e 3 intervalos da tríade.;
 0;
 #X text 934 80 Você poderá ouvir tríades dos timbres tocados durante
 o experimento.;
-#X text 933 154 1 - Escolha o timbre para desenhar a sua curva de dissonância
-;
 #X text 933 204 2 - Selecione um intervalo para ser tocado como segunda
 componente da tríade;
 #X text 933 340 Experimente as combinações entre picos e vales da
@@ -1163,3 +1160,5 @@ curva \, perceba quais parecem mais dissonantes e quais parecem menos
 dissonantes.;
 #X text 934 252 3 - Selecione um intervalo para ser tocado como terceira
 componente da tríade;
+#X text 933 154 1 - Escolha o timbre para apresentar a sua curva de
+dissonância;
