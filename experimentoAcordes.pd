@@ -1,4 +1,4 @@
-#N canvas 65 85 395 819 16;
+#N canvas 65 89 395 819 16;
 #X obj 46 -46 r $inicia_experimento;
 #X obj 46 482 f;
 #X obj 46 519 moses;
@@ -78,16 +78,16 @@
 #X obj 93 624 + 1;
 #X obj 1499 385 r f;
 #X obj 1538 385 r a;
-#N canvas 381 456 450 292 inicio 1;
+#N canvas 378 460 450 292 inicio 1;
 #X obj 49 70 vradio 30 1 1 3 $sujeito empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X text 54 39 Em que grupo você se encaixa?;
 #X obj 48 185 bng 30 250 50 0 def empty empty 8 15 0 25 -4034 -128992
 -1;
 #X text 88 70 Apenas ouço música;
-#X text 89 103 Estudo música;
-#X text 88 135 Trabalho com música;
 #X text 86 188 Próxima;
+#X text 89 103 Estudei/Estudo música;
+#X text 88 135 Trabalhei/Trabalho com música;
 #X restore 1410 -83 pd inicio;
 #N canvas 422 400 450 300 fim 0;
 #X text 86 55 Novo experimento;
