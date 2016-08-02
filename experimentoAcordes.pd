@@ -1,4 +1,4 @@
-#N canvas 65 89 395 819 16;
+#N canvas 65 101 395 819 16;
 #X obj 46 -46 r $inicia_experimento;
 #X obj 46 482 f;
 #X obj 46 519 moses;
@@ -14,10 +14,10 @@
 #X obj -247 423 r $resp;
 #X obj -274 448 f;
 #X obj 214 542 t b b;
-#N canvas 323 446 584 329 questao 0;
-#X obj 162 64 bng 30 250 50 0 $toca_1 $A A 8 15 0 25 -24198 -204800
+#N canvas 320 450 584 329 questao 1;
+#X obj 162 64 bng 30 250 50 0 $toca_1 $A A 8 15 0 25 -128992 -204800
 -262144;
-#X obj 234 64 bng 30 250 50 0 $toca_2 $B B 8 15 0 25 -24198 -204800
+#X obj 234 64 bng 30 250 50 0 $toca_2 $B B 8 15 0 25 -128992 -204800
 -262144;
 #X obj 99 157 vradio 30 1 1 3 $resp $seletor empty 0 -8 0 10 -262144
 -1 -1 0;
@@ -78,7 +78,7 @@
 #X obj 93 624 + 1;
 #X obj 1499 385 r f;
 #X obj 1538 385 r a;
-#N canvas 378 460 450 292 inicio 1;
+#N canvas 369 472 450 292 inicio 1;
 #X obj 49 70 vradio 30 1 1 3 $sujeito empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X text 54 39 Em que grupo você se encaixa?;
@@ -187,7 +187,7 @@ Timbre 2 - Tingshaw Timbre 3 - Harmônico 6;
 ;
 #X msg 113 425 51;
 #X obj 439 491 s pd-definicao;
-#N canvas 408 420 451 292 definicao 0;
+#N canvas 405 424 451 292 definicao 1;
 #X obj 38 129 bng 30 250 50 0 $inicia_experimento empty empty 8 15
 0 25 -4034 -128992 -1;
 #X text 77 133 Iniciar experimento;
@@ -223,12 +223,12 @@ Timbre 2 - Tingshaw Timbre 3 - Harmônico 6;
 #X obj 975 957 t f f;
 #X text 794 901 Seleciona os intervalos correspondentes ao acorde e
 timbre sorteados;
-#X obj 571 1020 list-permute;
+#X obj 599 1018 list-permute;
 #X obj 544 1099 s;
 #X obj 601 1148 s;
 #X obj -274 614 pack f f f f f f;
 #X text -136 482 Teoria resp;
-#X obj 571 972 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 599 972 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X text 462 1172 Aleatoriza a ordem dos acordes;
 #X msg -274 644 add \$1 \$2 \$3 \$4 \$5 \$6;
@@ -242,24 +242,36 @@ timbre sorteados;
 #X obj -180 533 r timbreA;
 #X obj -149 559 r timbreB;
 #X obj 571 1047 unpack s s;
-#X msg 571 990 list A B;
+#X msg 599 990 list A B;
 #X msg 281 130 list leigoT.txt;
 #X msg 316 158 list poucoT.txt;
 #X msg 352 184 list muitoT.txt;
 #X obj 46 700 moses 1;
-#X msg 730 10 list 10 20 30 11 21 31 12 22 32 13 23 33 14 24 34 100
-120 130 101 121 131 200 210 230 201 211 231 202 212 232 203 213 233
-204 214 234 300 310 320 301 311 321 302 312 322 303 313 323 304 314
-324;
 #X obj 161 791 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 835 1066 tabread;
 #X obj 33 965 expr $f1 % 10 \; int($f1 / 100) \; int(($f1%100) / 10)
 \;;
-#X obj 571 946 r $acorde;
 #X obj 748 247 loadbang;
 #X obj 748 302 s rampaDelay;
 #X msg 748 275 100;
+#X msg 489 722 304 131 312 314 213 300 21 101 211 234 313 321 120 322
+301 31 22 32 210 303 310 323 23 232 20 324 100 302 231 11 203 33 130
+13 230 14 204 201 24 200 311 30 214 202 320 212 12 121 10 34 233;
+#X text 493 694 Experimento piloto 2 - grupo 2;
+#X obj 599 946 r par;
+#X text 649 965 Ignorado para piloto;
+#X obj 407 840 list append;
+#X obj 407 869 list split 2;
+#X msg 730 10 10 20 30 11 21 31 12 22 32 13 23 33 14 24 34 100 120
+130 101 121 131 200 210 230 201 211 231 202 212 232 203 213 233 204
+214 234 300 310 320 301 311 321 302 312 322 303 313 323 304 314 324
+;
+#X msg 1089 760 A B B A A B A B B A B A A B A B B A A B B A B A A B
+B A A B A B B A A B A B B A B A A B A B B A A B B A B A A B B A A B
+A B B A A B A B B A B A A B A B B A A B B A B A A B B A A B A B B A
+A B A B B A B A;
+#X obj 411 723 t b b b;
 #X connect 0 0 37 0;
 #X connect 1 0 2 0;
 #X connect 1 0 4 0;
@@ -294,14 +306,14 @@ timbre sorteados;
 #X connect 37 1 16 0;
 #X connect 37 2 61 0;
 #X connect 37 3 55 0;
-#X connect 37 4 136 0;
+#X connect 37 4 148 0;
 #X connect 38 0 43 0;
 #X connect 38 1 39 1;
 #X connect 39 0 38 0;
 #X connect 40 0 39 0;
 #X connect 40 1 39 1;
 #X connect 41 0 40 0;
-#X connect 44 0 139 0;
+#X connect 44 0 138 0;
 #X connect 46 0 135 0;
 #X connect 46 1 27 0;
 #X connect 47 0 87 0;
@@ -347,16 +359,16 @@ timbre sorteados;
 #X connect 103 0 111 0;
 #X connect 104 0 110 0;
 #X connect 107 0 105 0;
-#X connect 108 0 138 0;
+#X connect 108 0 137 0;
 #X connect 109 0 107 0;
 #X connect 110 0 108 0;
 #X connect 110 1 109 0;
-#X connect 111 0 138 0;
+#X connect 111 0 137 0;
 #X connect 111 1 107 0;
-#X connect 113 0 130 0;
 #X connect 116 0 120 0;
 #X connect 116 0 102 0;
 #X connect 118 0 131 0;
+#X connect 118 0 146 0;
 #X connect 120 0 25 0;
 #X connect 123 0 114 0;
 #X connect 124 0 115 0;
@@ -374,15 +386,24 @@ timbre sorteados;
 #X connect 133 0 61 1;
 #X connect 134 0 60 1;
 #X connect 134 0 61 1;
-#X connect 135 1 137 0;
-#X connect 136 0 34 0;
-#X connect 137 0 39 0;
-#X connect 138 0 106 0;
-#X connect 139 0 100 0;
-#X connect 139 0 86 0;
-#X connect 139 1 47 0;
-#X connect 139 2 81 0;
-#X connect 140 0 118 0;
-#X connect 141 0 143 0;
-#X connect 143 0 142 0;
+#X connect 135 0 150 0;
+#X connect 135 1 136 0;
+#X connect 136 0 39 0;
+#X connect 137 0 106 0;
+#X connect 138 0 100 0;
+#X connect 138 0 86 0;
+#X connect 138 1 47 0;
+#X connect 138 2 81 0;
+#X connect 139 0 141 0;
+#X connect 141 0 140 0;
+#X connect 142 0 39 1;
+#X connect 144 0 118 0;
+#X connect 146 0 147 0;
+#X connect 147 0 130 0;
+#X connect 147 1 146 1;
+#X connect 148 0 34 0;
+#X connect 149 0 146 1;
+#X connect 150 0 39 0;
+#X connect 150 1 142 0;
+#X connect 150 2 149 0;
 #X coords 0 819 1 818 85 60 0;

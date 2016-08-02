@@ -168,6 +168,7 @@ if __name__ == "__main__":
   plotGraphs = False
   printMatrix = False
   fivemins = False
+  pointMins = False
   
   # Opções da linha de comando
   if (len(sys.argv) > 1):
@@ -206,7 +207,6 @@ if __name__ == "__main__":
     frequ.append(float(input()))
     ampl.append(float(input()))
 
-        
   # Cálculo da matriz de dissonancia
   diss3D, mins = dissSurface(numpartials, frequ, ampl)
 
